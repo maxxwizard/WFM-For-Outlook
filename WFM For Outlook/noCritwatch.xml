@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="../../ScheduleEditor/Styles/ScheduleDataLoad.xsl"?>
+<RequestScheduleView xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<FilteredSegments>
+		<Segments>
+			<DetailSegment SK="-989880293160">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-26</NominalDate>
+				<SegmentCode SK="-989996738926" />
+				<StartTime>2015-01-26T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-26T18:00:00-05:00</StopTime>
+				<Memo>
+					<![CDATA[Internship]]>
+				</Memo>
+			</DetailSegment>
+			<DetailSegment SK="-989880293185">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-26</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2015-01-26T13:30:00-05:00</StartTime>
+				<StopTime>2015-01-26T14:30:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293210">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-26</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2015-01-26T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-26T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293235">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-26</NominalDate>
+				<SegmentCode SK="-989999992622" />
+				<StartTime>2015-01-26T18:00:00-05:00</StartTime>
+				<StopTime>2015-01-26T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293060">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-27</NominalDate>
+				<SegmentCode SK="-989996738926" />
+				<StartTime>2015-01-27T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-27T18:00:00-05:00</StopTime>
+				<Memo>
+					<![CDATA[Internship]]>
+				</Memo>
+			</DetailSegment>
+			<DetailSegment SK="-989880293085">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-27</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2015-01-27T13:30:00-05:00</StartTime>
+				<StopTime>2015-01-27T14:30:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293110">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-27</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2015-01-27T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-27T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293135">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-27</NominalDate>
+				<SegmentCode SK="-989999992622" />
+				<StartTime>2015-01-27T18:00:00-05:00</StartTime>
+				<StopTime>2015-01-27T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292910">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-28</NominalDate>
+				<SegmentCode SK="-989996738926" />
+				<StartTime>2015-01-28T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-28T18:00:00-05:00</StopTime>
+				<Memo>
+					<![CDATA[Internship]]>
+				</Memo>
+			</DetailSegment>
+			<DetailSegment SK="-989880292935">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-28</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2015-01-28T14:00:00-05:00</StartTime>
+				<StopTime>2015-01-28T15:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293010">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-28</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2015-01-28T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-28T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880293035">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-28</NominalDate>
+				<SegmentCode SK="-989999992622" />
+				<StartTime>2015-01-28T18:00:00-05:00</StartTime>
+				<StopTime>2015-01-28T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292810">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-29</NominalDate>
+				<SegmentCode SK="-989996738926" />
+				<StartTime>2015-01-29T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-29T18:00:00-05:00</StopTime>
+				<Memo>
+					<![CDATA[Internship]]>
+				</Memo>
+			</DetailSegment>
+			<DetailSegment SK="-989880292835">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-29</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2015-01-29T13:30:00-05:00</StartTime>
+				<StopTime>2015-01-29T14:30:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292860">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-29</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2015-01-29T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-29T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292885">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-29</NominalDate>
+				<SegmentCode SK="-989999992622" />
+				<StartTime>2015-01-29T18:00:00-05:00</StartTime>
+				<StopTime>2015-01-29T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292710">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-30</NominalDate>
+				<SegmentCode SK="-989996738926" />
+				<StartTime>2015-01-30T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-30T18:00:00-05:00</StopTime>
+				<Memo>
+					<![CDATA[Internship]]>
+				</Memo>
+			</DetailSegment>
+			<DetailSegment SK="-989880292735">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-30</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2015-01-30T13:30:00-05:00</StartTime>
+				<StopTime>2015-01-30T14:30:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292760">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-30</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2015-01-30T10:00:00-05:00</StartTime>
+				<StopTime>2015-01-30T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989880292785">
+				<Employee SK="-989962008919" />
+				<NominalDate>2015-01-30</NominalDate>
+				<SegmentCode SK="-989999992622" />
+				<StartTime>2015-01-30T18:00:00-05:00</StartTime>
+				<StopTime>2015-01-30T19:00:00-05:00</StopTime>
+				<Memo />
+			</DetailSegment>
+		</Segments>
+	</FilteredSegments>
+	<SegmentCodes>
+		<SegmentCode SK="-989996738926">
+			<Code>GE ECS-Spec Assgn</Code>
+			<Description>GE ECS-Spec Assgn</Description>
+			<Rank>350</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>32896</Color>
+			<FontColor>16777215</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989999994162" />
+			<UpdatedOn>2015-01-23T06:28:23</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999998220">
+			<Code>Meal</Code>
+			<Description>Meal</Description>
+			<Rank>22</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>-2147483643</Color>
+			<FontColor>16744448</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989999994162" />
+			<UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999992622">
+			<Code>Pre-EOS</Code>
+			<Description>Pre End of Shift</Description>
+			<Rank>35</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>4227327</Color>
+			<FontColor>16777215</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989999994162" />
+			<UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999998236">
+			<Code>Shift</Code>
+			<Description>Shift (container)</Description>
+			<Rank>363</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>12632256</Color>
+			<FontColor>-2147483640</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989999994162" />
+			<UpdatedOn>2015-01-23T06:28:23</UpdatedOn>
+		</SegmentCode>
+	</SegmentCodes>
+	<SegmentRequests />
+</RequestScheduleView>

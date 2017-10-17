@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="../../ScheduleEditor/Styles/ScheduleDataLoad.xsl"?>
+<RequestScheduleView xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FilteredSegments>
+    <Segments>
+      <DetailSegment SK="-989999998220">
+        <Employee SK="-989962008919" />
+        <NominalDate>2015-02-05</NominalDate>
+        <SegmentCode SK="-989999998220" />
+        <StartTime>2015-02-05T23:00:00-05:00</StartTime>
+        <StopTime>2015-02-06T02:00:00-05:00</StopTime>
+        <Memo />
+      </DetailSegment>
+	</Segments>
+  </FilteredSegments>
+  <SegmentCodes>
+    <SegmentCode SK="-989979142295">
+      <Code>GE ECS-XADM T3 SR</Code>
+      <Description>GE ECS-XADM T3 SR</Description>
+      <Rank>175</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>8454016</Color>
+      <FontColor>-16777208</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2014-11-12T06:30:59</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989999998220">
+      <Code>Meal</Code>
+      <Description>Meal</Description>
+      <Rank>22</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>-2147483643</Color>
+      <FontColor>16744448</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989999919080">
+      <Code>MS Holiday</Code>
+      <Description>MS Holiday</Description>
+      <Rank>2</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>16711935</Color>
+      <FontColor>16777215</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2013-01-04T06:41:35</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989999992622">
+      <Code>Pre-EOS</Code>
+      <Description>Pre End of Shift</Description>
+      <Rank>35</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>4227327</Color>
+      <FontColor>16777215</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989999997592">
+      <Code>Pre-OOF</Code>
+      <Description>Pre-OOF</Description>
+      <Rank>34</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>4227327</Color>
+      <FontColor>16777215</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989998498587">
+      <Code>Recurring Meeting/Event</Code>
+      <Description>Recurring Meeting/Event</Description>
+      <Rank>32</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>16777088</Color>
+      <FontColor>-16777208</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2014-02-04T05:30:00</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989998181389">
+      <Code>Research</Code>
+      <Description>Research (No cases assigned)</Description>
+      <Rank>361</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>9262642</Color>
+      <FontColor>16777215</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2015-01-23T06:28:23</UpdatedOn>
+    </SegmentCode>
+    <SegmentCode SK="-989999998236">
+      <Code>Shift</Code>
+      <Description>Shift (container)</Description>
+      <Rank>363</Rank>
+      <RequiresMemo>false</RequiresMemo>
+      <Color>12632256</Color>
+      <FontColor>-2147483640</FontColor>
+      <DefaultDuration>60</DefaultDuration>
+      <UpdatedBy SK="-989999994162" />
+      <UpdatedOn>2015-01-23T06:28:23</UpdatedOn>
+    </SegmentCode>
+  </SegmentCodes>
+  <SegmentRequests />
+</RequestScheduleView>

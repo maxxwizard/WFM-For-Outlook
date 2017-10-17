@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="../../ScheduleEditor/Styles/ScheduleLoadData.xsl"?>
+<RequestScheduleView xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<FilteredSegments>
+		<Segments>
+			<DetailSegment SK="-989815326240">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-17</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-17T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-17T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326279">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-17</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-17T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-17T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326318">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-17</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-17T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-17T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326123">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-18</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-18T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-18T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326162">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-18</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-18T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-18T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326201">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-18</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-18T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-18T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326006">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-19</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-19T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-19T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326045">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-19</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-19T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-19T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326084">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-19</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-19T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-19T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815325889">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-20</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-20T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-20T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815325928">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-20</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-20T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-20T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815325967">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-20</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-20T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-20T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326356">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-23</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-23T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-23T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326395">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-23</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-23T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-23T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326434">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-23</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-23T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-23T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<GeneralSegment SK="-989817573791">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-17</NominalDate>
+				<SegmentCode SK="-989999997031" />
+				<Memo />
+			</GeneralSegment>
+			<GeneralSegment SK="-989817573790">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-18</NominalDate>
+				<SegmentCode SK="-989999997031" />
+				<Memo />
+			</GeneralSegment>
+			<GeneralSegment SK="-989817573789">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-19</NominalDate>
+				<SegmentCode SK="-989999997031" />
+				<Memo />
+			</GeneralSegment>
+		</Segments>
+	</FilteredSegments>
+	<SegmentCodes>
+		<SegmentCode SK="-989941022901">
+			<Code>GE ECS-Pri EE SR</Code>
+			<Description>GE ECS-Pri EE SR</Description>
+			<Rank>283</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>8454016</Color>
+			<FontColor>-16777208</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989967579053" />
+			<UpdatedOn>2017-10-09T14:36:42-04:00</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999998220">
+			<Code>Meal</Code>
+			<Description>Meal</Description>
+			<Rank>22</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>-2147483643</Color>
+			<FontColor>16744448</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989999994162" />
+			<UpdatedOn>2014-02-04T08:30:00-05:00</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999997031">
+			<Code>On Call</Code>
+			<Description>On Call</Description>
+			<Rank>582</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>13492130</Color>
+			<FontColor>-1</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989890226899" />
+			<UpdatedOn>2017-10-11T09:19:08-04:00</UpdatedOn>
+		</SegmentCode>
+		<SegmentCode SK="-989999998236">
+			<Code>Shift</Code>
+			<Description>Shift (container)</Description>
+			<Rank>581</Rank>
+			<RequiresMemo>false</RequiresMemo>
+			<Color>12632256</Color>
+			<FontColor>-2147483640</FontColor>
+			<DefaultDuration>60</DefaultDuration>
+			<UpdatedBy SK="-989890226899" />
+			<UpdatedOn>2017-10-11T09:19:08-04:00</UpdatedOn>
+		</SegmentCode>
+	</SegmentCodes>
+	<SegmentRequests />
+</RequestScheduleView>

@@ -208,7 +208,8 @@ namespace WFM_For_Outlook
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(55);
 
-                //InternalSync();
+                // if we're preserving subject names
+
                 InternalSyncBetter(scheduleXml);
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(100);
@@ -449,22 +450,28 @@ namespace WFM_For_Outlook
         /// <returns></returns>
         private IEnumerable<XElement> ParseScheduleXml(string xml)
         {
-            //var xmlDoc = XDocument.Load(@"C:\sources\XmlParsing\XmlParsing\critwatch.xml");
+            //var xmlDoc = XDocument.Load(@"C:\sources\WFM-For-Outlook\WFM For Outlook\eeSchedule.xml");
             var xmlDoc = XDocument.Parse(xml);
 
-            var matchingCode = from c in xmlDoc.Root.Descendants("SegmentCodes").Descendants()
-                               where c.Name == "SegmentCode" && c.Element("Code").Value.ToLower() == userOptions.segmentNameToMatch.ToLower()
-                               select c;
-            string cwSKtoMatch = string.Empty;
-            foreach (var code in matchingCode)
+            // we could have a list of segment names to match
+            string[] segmentNames = userOptions.segmentNameToMatch.ToLower().Split(new char[] { ';', ',' });
+
+            var matchingCode = (from c in xmlDoc.Root.Descendants("SegmentCodes").Descendants()
+                               where c.Name == "SegmentCode" && segmentNames.Contains(c.Element("Code").Value.ToLower())
+                               select c).ToArray();
+
+            // extract all the segment key IDs
+            string[] cwSKtoMatch = new string[matchingCode.Count()];
+            for (int i = 0; i < matchingCode.Count(); i++)
             {
+                var code = matchingCode[i];
                 var id = code.Attribute("SK").Value;
                 var name = code.Element("Code").Value;
-                cwSKtoMatch = id;
+                cwSKtoMatch[i] = id;
             }
 
             var matchingSegments = from s in xmlDoc.Root.Descendants("Segments").Descendants()
-                                   where s.Name == "DetailSegment" && (string)s.Element("SegmentCode").Attribute("SK") == cwSKtoMatch
+                                   where s.Name == "DetailSegment" && cwSKtoMatch.Contains((string)s.Element("SegmentCode").Attribute("SK"))
                                    select s;
 
             return matchingSegments;

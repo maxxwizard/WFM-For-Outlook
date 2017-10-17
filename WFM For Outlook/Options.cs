@@ -8,9 +8,20 @@ using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace WFM_For_Outlook
 {
+    public enum SyncMode
+    {
+        [Description("Preserve segment names")]
+        PreserveSegmentNames,
+
+        [Description("Rename to single subject")]
+        RenameToSingleSubject
+    }
+
     public class Options
     {
         public const string CONFIG_MESSAGE_SUBJECT = "WFM for Outlook";
@@ -28,6 +39,7 @@ namespace WFM_For_Outlook
         public string employeeSK;
         public string categoryId;
         public string categoryName;
+        public SyncMode syncMode;
 
         /// <summary>
         /// Constructor with default values.
@@ -42,6 +54,7 @@ namespace WFM_For_Outlook
             this.daysToPull = 14;
             this.pollingIntervalInMinutes = 480;
             this.segmentNameToMatch = String.Empty;
+            this.syncMode = SyncMode.RenameToSingleSubject;
         }
 
         /// <summary>
@@ -80,7 +93,18 @@ namespace WFM_For_Outlook
                 if (configItem.EntryID != null && configItem.EntryID != "")
                 {
                     Log.WriteEntry("User options were loaded from Exchange.");
-                    return (Options)x.Deserialize(new StringReader(configItem.Body));
+                    // if we fail to deserialize, just return an empty one
+                    Options opts;
+                    try
+                    {
+                        opts = (Options)x.Deserialize(new StringReader(configItem.Body));
+                    } catch
+                    {
+                        MessageBox.Show("There was an error reading your WFM for Outlook settings from Exchange so it has been reset. Please update your settings again accordingly.");
+                        opts = new Options();
+                    }
+                    
+                    return opts;
                 }
             }
 

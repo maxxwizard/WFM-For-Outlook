@@ -55,11 +55,13 @@
             this.btnSyncNow = this.Factory.CreateRibbonButton();
             this.btnSyncLog = this.Factory.CreateRibbonButton();
             this.btnResetSettings = this.Factory.CreateRibbonButton();
+            this.gallerySyncMode = this.Factory.CreateRibbonGallery();
             this.tabWfmForOutlook.SuspendLayout();
             this.grpMeetingOptions.SuspendLayout();
             this.grpSyncOptions.SuspendLayout();
             this.grpSyncMisc.SuspendLayout();
             this.grpSyncStatus.SuspendLayout();
+            this.SuspendLayout();
             // 
             // tabWfmForOutlook
             // 
@@ -76,14 +78,15 @@
             this.grpMeetingOptions.Items.Add(this.galleryReminder);
             this.grpMeetingOptions.Items.Add(this.galleryAvailStatus);
             this.grpMeetingOptions.Items.Add(this.galleryCategory);
+            this.grpMeetingOptions.Items.Add(this.gallerySyncMode);
             this.grpMeetingOptions.Items.Add(this.btnSubject);
             this.grpMeetingOptions.Label = "Meeting Options";
             this.grpMeetingOptions.Name = "grpMeetingOptions";
             // 
             // grpSyncOptions
             // 
-            this.grpSyncOptions.Items.Add(this.galleryDaysToPull);
             this.grpSyncOptions.Items.Add(this.galleryPollingInterval);
+            this.grpSyncOptions.Items.Add(this.galleryDaysToPull);
             this.grpSyncOptions.Items.Add(this.btnSegmentName);
             this.grpSyncOptions.Label = "Sync Options";
             this.grpSyncOptions.Name = "grpSyncOptions";
@@ -162,10 +165,10 @@
             // btnSubject
             // 
             this.btnSubject.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSubject.Label = "Subject";
+            this.btnSubject.Label = "Subject Title";
             this.btnSubject.Name = "btnSubject";
             this.btnSubject.OfficeImageId = "MessageOptions";
-            this.btnSubject.ScreenTip = "Newly created meetings will be titled this.";
+            this.btnSubject.ScreenTip = "If rename to single subject is enabled, synced segments will be titled this.";
             this.btnSubject.ShowImage = true;
             this.btnSubject.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSubject_Click);
             // 
@@ -193,10 +196,11 @@
             // 
             // btnSegmentName
             // 
-            this.btnSegmentName.Label = "CW Segment Name";
+            this.btnSegmentName.Label = "Segment Name(s)";
             this.btnSegmentName.Name = "btnSegmentName";
             this.btnSegmentName.OfficeImageId = "MemoSettingsMenu";
-            this.btnSegmentName.ScreenTip = "Edit this to match the name of your critwatch segment name.";
+            this.btnSegmentName.ScreenTip = "List of segment name(s) you wish to sync; separate values using a semicolon delim" +
+    "iter.";
             this.btnSegmentName.ShowImage = true;
             this.btnSegmentName.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSegmentName_Click);
             // 
@@ -228,6 +232,17 @@
             this.btnResetSettings.ShowImage = true;
             this.btnResetSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnResetSettings_Click);
             // 
+            // gallerySyncMode
+            // 
+            this.gallerySyncMode.ColumnCount = 1;
+            this.gallerySyncMode.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.gallerySyncMode.Label = "Subject Renaming";
+            this.gallerySyncMode.Name = "gallerySyncMode";
+            this.gallerySyncMode.OfficeImageId = "VideoContrastGallery";
+            this.gallerySyncMode.ShowImage = true;
+            this.gallerySyncMode.ShowItemSelection = true;
+            this.gallerySyncMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.gallerySyncMode_Click);
+            // 
             // CalendarIntegrationRibbon
             // 
             this.Name = "CalendarIntegrationRibbon";
@@ -244,6 +259,7 @@
             this.grpSyncMisc.PerformLayout();
             this.grpSyncStatus.ResumeLayout(false);
             this.grpSyncStatus.PerformLayout();
+            this.ResumeLayout(false);
 
         }
 
@@ -269,6 +285,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpSyncMisc;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnResetSettings;
         public System.ComponentModel.BackgroundWorker syncBackgroundWorker;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGallery gallerySyncMode;
     }
 
     partial class ThisRibbonCollection

@@ -61,7 +61,27 @@ namespace WFM_For_Outlook
             InitializePollingIntervalGallery();
             InitializeDaysToPullGallery();
             InitializeCategoryGallery();
+            InitializeSyncModeGallery();
             RedrawSyncStatus();
+        }
+
+        private void InitializeSyncModeGallery()
+        {
+            gallerySyncMode.Items.Clear();
+
+            foreach (SyncMode mode in Enum.GetValues(typeof(SyncMode)))
+            {
+                var item = this.Factory.CreateRibbonDropDownItem();
+                item.Label = mode.GetDescription();
+                item.Tag = mode;
+                gallerySyncMode.Items.Add(item);
+                if (Globals.ThisAddIn.userOptions.syncMode == mode)
+                {
+                    gallerySyncMode.SelectedItem = item;
+                }
+            }
+
+            EnableDisableSyncModeControls();
         }
 
         private void InitializeCategoryGallery()
@@ -391,7 +411,7 @@ namespace WFM_For_Outlook
 
         private DialogResult PromptUserForCWSegmentName()
         {
-            var result = InputBox("CW Segment Name", ref Globals.ThisAddIn.userOptions.segmentNameToMatch);
+            var result = InputBox("Critwatch Segment Name(s)", ref Globals.ThisAddIn.userOptions.segmentNameToMatch);
 
             if (result == DialogResult.OK)
             {
@@ -573,6 +593,31 @@ namespace WFM_For_Outlook
                 // redraw
                 InitializeControls();
             }
+        }
+
+        private void EnableDisableSyncModeControls()
+        {
+            if (Globals.ThisAddIn.userOptions.syncMode == SyncMode.PreserveSegmentNames)
+            {
+                btnSubject.Enabled = false;
+            }
+            else
+            {
+                btnSubject.Enabled = true;
+            }
+        }
+        
+        private void gallerySyncMode_Click(object sender, RibbonControlEventArgs e)
+        {
+            var gallery = sender as RibbonGallery;
+            SyncMode mode = (SyncMode)gallery.SelectedItem.Tag;
+
+            Globals.ThisAddIn.userOptions.syncMode = mode;
+
+            // disable unnecessary controls
+            EnableDisableSyncModeControls();
+
+            Globals.ThisAddIn.userOptions.Save();
         }
     }
 }
