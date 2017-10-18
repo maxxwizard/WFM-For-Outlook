@@ -120,8 +120,7 @@ namespace WFM_For_Outlook
                     {
                         userOptions.employeeSK = e.Attribute("SK").Value;
                     }
-
-                    //userOptions.Save();
+                    
                 }
             }
 
@@ -448,6 +447,9 @@ namespace WFM_For_Outlook
             return items;
         }
 
+        /// <summary>
+        /// Highly dangerous: deletes all meetings newer than today that the add-in created.
+        /// </summary>
         private void DeleteFutureMeetings()
         {
             Log.WriteDebug("Deleting all future meetings");
@@ -529,22 +531,6 @@ namespace WFM_For_Outlook
             }
 
             Log.WriteEntry(String.Format("CritWatch meeting created (Start={0}, End={1}, LastSyncTime={2})", startTime.ToString(), endTime.ToString(), lastSyncTime.ToString()));
-        }
-
-        private void Inspectors_NewInspector(Outlook.Inspector Inspector)
-        {
-            Outlook.MailItem mailItem = Inspector.CurrentItem as Outlook.MailItem;
-            if (mailItem != null)
-            {
-                // check that the mail item is new
-                if (mailItem.EntryID == null)
-                {
-                    /*
-                    mailItem.Subject = "This text was added using code";
-                    mailItem.Body = "This text was added using code";
-                     */
-                }
-            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
