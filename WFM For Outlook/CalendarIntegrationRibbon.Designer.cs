@@ -178,7 +178,7 @@
             this.btnSubject.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnSubject.Label = "Subject Prefix";
             this.btnSubject.Name = "btnSubject";
-            this.btnSubject.OfficeImageId = "MessageOptions";
+            this.btnSubject.OfficeImageId = "MemoSettingsMenu";
             this.btnSubject.ScreenTip = "Meetings created on calendar will have this prefix.";
             this.btnSubject.ShowImage = true;
             this.btnSubject.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSubject_Click);
@@ -209,7 +209,7 @@
             // 
             this.btnSegmentName.Label = "Segment Filter";
             this.btnSegmentName.Name = "btnSegmentName";
-            this.btnSegmentName.OfficeImageId = "MemoSettingsMenu";
+            this.btnSegmentName.OfficeImageId = "Filters";
             this.btnSegmentName.ScreenTip = "List of segment name(s) you wish to include or exclude. Separate values using a s" +
     "emicolon delimiter.";
             this.btnSegmentName.ShowImage = true;

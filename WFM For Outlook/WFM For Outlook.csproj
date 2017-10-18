@@ -36,10 +36,10 @@
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <BootstrapperEnabled>false</BootstrapperEnabled>
-    <PublishUrl>\\tkfiltoolbox\tools\wfmForOutlook\</PublishUrl>
-    <InstallUrl>\\tkfiltoolbox\tools\wfmForOutlook\</InstallUrl>
+    <PublishUrl>\\mahuynh-z220\wfmForOutlook\</PublishUrl>
+    <InstallUrl>\\mahuynh-z220\wfmForOutlook\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.19</ApplicationVersion>
+    <ApplicationVersion>1.0.0.20</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
