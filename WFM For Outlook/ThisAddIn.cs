@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using WFM_For_Outlook.WFM_API;
 using Microsoft.Office.Tools.Ribbon;
 using System.Threading;
+using Microsoft.Office.Interop.Outlook;
 
 namespace WFM_For_Outlook
 {
@@ -95,7 +96,7 @@ namespace WFM_For_Outlook
                     //userXML = await client.GetStringAsync(targetUrl);
                     response = await client.GetAsync(targetUrl);
                 }
-                catch (Exception exc)
+                catch (System.Exception exc)
                 {
                     Log.WriteEntry("Exception while querying WFM for employee SK.\r\n" + exc.ToString());
                     return false;
@@ -149,7 +150,7 @@ namespace WFM_For_Outlook
 
                 response = await client.PostAsync(targetUrl, filter, formatter);
             }
-            catch (Exception exc)
+            catch (System.Exception exc)
             {
                 Log.WriteEntry("Exception while querying WFM for employee schedule.\r\n" + exc.ToString());
                 return string.Empty;
@@ -207,12 +208,12 @@ namespace WFM_For_Outlook
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(55);
 
-                InternalSyncBetter(scheduleXml);
+                InternalSync(scheduleXml);
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(100);
 
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Log.WriteEntry("Internal sync issue.\r\n" + e.ToString());
                 return false;
@@ -221,154 +222,49 @@ namespace WFM_For_Outlook
             return true;
         }
 
-        private void InternalSyncBetter(string scheduleXml)
+        /// <summary>
+        /// Syncs WFM schedule XML to Outlook calendar
+        /// </summary>
+        /// <remarks>
+        /// Sync logic is very basic. We delete all future meetings and create new ones based on WFM schedule.
+        /// </remarks>
+        /// <param name="scheduleXml">Full XML response from WFM</param>
+        private void InternalSync(string scheduleXml)
         {
-            // sync logic operates with the building block of a day. a day is actually defined by WFM's NominalDate field (start date is what counts).
-            // for each day, we use this sync logic:
-            /*
-                grab segments by nominal date from WFM and calendar
-
-                meetingsToBeCreated = 0
-
-                for each WFM segment {
-                   find the corresponding calendar meeting and mark it as processed
-                   if not found
-                      meetingsToBeCreated++
-                }
-
-                for (;meetingsToBeCreated > 0; meetingsToBeCreated--) {
-                   if there is an unprocessed calendar meeting left
-                      use it (by changing the start/end time) and set processed flag
-                }
-
-                for each calendar meeting that is still not processed {
-                   delete the meeting
-                }
-             */
-
             WfmSchedule schedule = WfmSchedule.Parse(scheduleXml);
 
-            string[] segmentNames = Globals.ThisAddIn.userOptions.segmentNameToMatch.ToLower().Split(new char[] { ';', ',' });
-            var matchingSegments = schedule.GetMatchingSegments(segmentNames);
+            string[] segmentFilter = Globals.ThisAddIn.userOptions.segmentFilter.ToLower().Split(new char[] { ';', ',' });
+            var matchingSegments = schedule.GetMatchingSegments(segmentFilter);
 
-            Log.WriteEntry(String.Format("Found {0} segments from WFM with segment names: {1}", matchingSegments.Count, String.Join(", ", segmentNames)));
+            Log.WriteEntry(String.Format("Found {0} segments from WFM with {1} segment names: {2}", matchingSegments.Count, userOptions.syncMode, String.Join(", ", segmentFilter)));
 
             if (Globals.ThisAddIn.userOptions.lastSyncTime == DateTime.MinValue && matchingSegments.Count == 0)
             {
                 // this is the first run of the meeting and there were no segments found
-                MessageBox.Show(String.Format("I noticed this is your first WFM for Outlook sync and we did not find any" +
-                                                " segments titled '{0}' from WFM. Are you sure that" +
-                                                " your CW segment name is set correctly?", userOptions.segmentNameToMatch),
+                MessageBox.Show(String.Format("I noticed this is your first WFM for Outlook sync and we did not find any segments from WFM. Please ensure that your segment filter is configured correctly.", userOptions.segmentFilter),
                                                 "First sync notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
+            int stats_meetingsDeleted = DeleteFutureMeetings();
+
             var syncTimeNow = DateTime.Now;
-
-            Outlook.AppointmentItem unprocessedMeeting;
-
+            
             int stats_totalSegmentsFromWfm = schedule.Segments.Count;
             int stats_meetingsCreated = 0;
-            int stats_meetingsDeleted = 0;
-            int stats_meetingsSynched = 0;
-            int stats_meetingsUpdated = 0;
 
-            int PercentPerSegment = (int)Math.Floor(25.0 / (double)userOptions.daysToPull);
-            int progressPercent = 75;
+            int PercentPerSegment = (int)Math.Floor(40.0 / (double)stats_totalSegmentsFromWfm);
+            int progressPercent = 60;
 
             Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(progressPercent);
 
-            DateTime current = DateTime.Now;
-            for (int i = 0; i < userOptions.daysToPull; i++)
+            Log.WriteDebug("SyncEngine : Starting meeting creation loop");
+            foreach (var seg in matchingSegments)
             {
-                /*
-                Outlook.Items cwMeetingsOnCalendar = GetCritWatchMeetingsNominalDate(current);
-                IEnumerable<XElement> segmentsInWfm = from s in matchingSegments
-                                                      where s.Element("NominalDate").Value == current.ToString("yyyy-MM-dd")
-                                                      select s;
-                int countSegmentsInWfm = matchingSegments.Count();
+                CreateMeetingOnCalendar(syncTimeNow, seg);
+                stats_meetingsCreated++;
 
-                List<XElement> meetingsToBeCreated = new List<XElement>();
-
-                Log.WriteDebug("syncEngine : Starting initial sync loop, date " + current.ToShortDateString());
-                foreach (var seg in segmentsInWfm)
-                {
-                    string subject = seg.Attribute("SK").Value;
-                    DateTime start = DateTime.Parse(seg.Element("StartTime").Value);
-                    DateTime end = DateTime.Parse(seg.Element("StopTime").Value);
-                    Outlook.AppointmentItem foundItem = FindItemInMeetings(cwMeetingsOnCalendar, start, end);
-
-                    if (foundItem == null)
-                    {
-                        Log.WriteDebug(String.Format("syncEngine : saving meeting {0} to be created/adjusted later", start));
-                        meetingsToBeCreated.Add(seg);
-                    }
-                    else
-                    {
-                        var lastSyncTime = foundItem.UserProperties.Find(PROP_LAST_SYNC_TIME);
-                        if (lastSyncTime == null)
-                        {
-                            lastSyncTime = foundItem.UserProperties.Add(PROP_LAST_SYNC_TIME, Outlook.OlUserPropertyType.olDateTime);
-                        }
-                        lastSyncTime.Value = syncTimeNow;
-                        foundItem.Save();
-                        stats_meetingsSynched++;
-                        Log.WriteDebug(String.Format("syncEngine : meeting {0} found and synched", foundItem.Start.ToString()));
-                    }
-                }
-
-                Log.WriteDebug(String.Format("syncEngine : meetingsToBeCreated.Count = {0}", meetingsToBeCreated.Count));
-
-                Log.WriteDebug("syncEngine : Starting meeting creation/update loop");
-                foreach (var seg in meetingsToBeCreated)
-                {
-                    DateTime start = DateTime.Parse(seg.Element("StartTime").Value);
-                    DateTime end = DateTime.Parse(seg.Element("StopTime").Value);
-
-                    // find the corresponding calendar meeting to use
-                    unprocessedMeeting = FindUnprocessedMeetingToUse(syncTimeNow, cwMeetingsOnCalendar);
-
-                    // if we didn't find one, we need to create a new meeting otherwise we just need to adjust it
-                    if (unprocessedMeeting == null)
-                    {
-                        CreateCritWatchSegment(syncTimeNow, start, end);
-                        stats_meetingsCreated++;
-                    }
-                    else
-                    {
-                        unprocessedMeeting.UserProperties.Find(PROP_LAST_SYNC_TIME).Value = syncTimeNow;
-                        unprocessedMeeting.Start = start;
-                        unprocessedMeeting.End = end;
-                        unprocessedMeeting.Save();
-                        stats_meetingsUpdated++;
-                    }
-                }
-
-                Log.WriteDebug("syncEngine : Starting deletion loop");
-                // https://msdn.microsoft.com/en-us/library/office/microsoft.office.interop.outlook._appointmentitem.delete(v=office.15).aspx
-                // https://social.msdn.microsoft.com/Forums/office/en-US/53a07e5d-ab16-4930-90bf-52215f084d59/appointmentitemrecipientsremoveindex-question?forum=outlookdev
-                // Seriously Outlook Object Model? So the index starts at 1 and we have to always decrement instead of increment.
-                for (int j = cwMeetingsOnCalendar.Count; j >= 1; j--)
-                {
-                    
-                    Outlook.AppointmentItem item = cwMeetingsOnCalendar[j];
-                    var lastSyncTimeProp = item.UserProperties.Find(PROP_LAST_SYNC_TIME);
-
-                    Log.WriteDebug(String.Format("syncEngine : deletion loop : (lastSyncTime={0}, syncTimeNow={1})", (lastSyncTimeProp != null ? lastSyncTimeProp.Value.ToString() : "null"), syncTimeNow.ToString()));
-
-                    // if the LastSyncTime doesn't match syncTimeNow, we delete it
-                    // we compare their ToStrings because for some unknown reason, the ticks are different from when we save them to the object and retrieve them
-                    if (lastSyncTimeProp != null && !syncTimeNow.ToString().Equals(lastSyncTimeProp.Value.ToString()))
-                    {
-                        Log.WriteDebug("syncEngine : Deleting meeting " + item.Start.ToString());
-                        item.Delete();
-                        stats_meetingsDeleted++;
-                    }
-                }
-
-                // move to next day
-                current = current.AddDays(1);
-                */
+                Log.WriteDebug(String.Format("SyncEngine : meeting created \r\n{0}", seg.ToString()));
 
                 // update progress
                 progressPercent += PercentPerSegment;
@@ -376,54 +272,8 @@ namespace WFM_For_Outlook
             }
 
             // output stats to our sync log
-            Log.WriteEntry(String.Format("Segments from WFM: {0}\r\nMeetings matched/synched: {1}\r\nMeetings updated: {2}\r\nMeetings created: {3}\r\nMeetings deleted: {4}",
-                stats_totalSegmentsFromWfm, stats_meetingsSynched, stats_meetingsUpdated, stats_meetingsCreated, stats_meetingsDeleted));
-        }
-
-        /// <summary>
-        /// Returns a meeting whose LastSyncTime isn't equal to the current sync attempt (<paramref name="syncTime"/>). Returns null if none available.
-        /// </summary>
-        /// <param name="syncTime"></param>
-        /// <param name="meetings"></param>
-        /// <returns></returns>
-        private Outlook.AppointmentItem FindUnprocessedMeetingToUse(DateTime syncTime, Outlook.Items meetings)
-        {
-            Log.WriteEntry(String.Format("FindUnprocessedMeetingToUse() with LastSyncTime older than {0}", syncTime.ToString()));
-            for (int j = meetings.Count; j >= 1; j--)
-            {
-                Outlook.AppointmentItem item = meetings[j];
-                var lastSyncTime = item.UserProperties.Find(PROP_LAST_SYNC_TIME);
-
-                if (lastSyncTime != null && !syncTime.ToString().Equals(lastSyncTime.Value.ToString()))
-                {
-                    Log.WriteEntry(String.Format("FindUnprocessedMeetingToUse() found meeting with LastSyncTime of {0}", lastSyncTime.Value.ToString()));
-                    return item;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// The meeting if found, null if not.
-        /// </summary>
-        /// <param name="meetings"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        private Outlook.AppointmentItem FindItemInMeetings(Outlook.Items meetings, DateTime start, DateTime end)
-        {
-            
-            foreach (Outlook.AppointmentItem m in meetings)
-            {
-                Log.WriteEntry(String.Format("syncEngine : comparing meeting {0} against param {1}", m.Start.ToString(), start.ToString()));
-                if (m.Start.Equals(start) && m.End.Equals(end))
-                {
-                    return m;
-                }
-            }
-
-            return null;
+            Log.WriteEntry(String.Format("Segments from WFM: {0}\r\nMeetings created: {1}\r\nMeetings deleted: {2}",
+                stats_totalSegmentsFromWfm, stats_meetingsCreated, stats_meetingsDeleted));
         }
 
         /// <summary>
@@ -431,7 +281,7 @@ namespace WFM_For_Outlook
         /// </summary>
         /// <param name="startDate">Meeting start time must fall on this date.</param>
         /// <returns></returns>
-        private Outlook.Items GetCritWatchMeetingsNominalDate(DateTime startDate)
+        private Outlook.Items GetMeetingsNominalDate(DateTime startDate)
         {
             Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
             Outlook.Items items = calendar.Items;
@@ -450,25 +300,32 @@ namespace WFM_For_Outlook
         /// <summary>
         /// Highly dangerous: deletes all meetings newer than today that the add-in created.
         /// </summary>
-        private void DeleteFutureMeetings()
+        public int DeleteFutureMeetings()
         {
             Log.WriteDebug("Deleting all future meetings");
 
             Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
             Outlook.Items items = calendar.Items;
 
-            DateTime startDate = DateTime.Now;
+            // start deleting from 11:59pm the previous night to capture the all-day events
+            DateTime startDate = DateTime.Now.Date.AddMinutes(-1);
 
-            string filter = String.Format("[Start] >= '{0}' and [MessageClass] = '{2}'",
-                startDate.ToShortDateString(), CUSTOM_MESSAGE_CLASS);
+            string filter = String.Format("[Start] >= '{0}' and [MessageClass] = '{1}'", 
+                String.Format("{0} {1}", startDate.ToShortDateString(), startDate.ToShortTimeString()), CUSTOM_MESSAGE_CLASS);
             items = items.Restrict(filter);
 
-            foreach (Outlook.AppointmentItem item in items)
+            // https://msdn.microsoft.com/en-us/library/office/microsoft.office.interop.outlook._appointmentitem.delete(v=office.15).aspx
+            // https://social.msdn.microsoft.com/Forums/office/en-US/53a07e5d-ab16-4930-90bf-52215f084d59/appointmentitemrecipientsremoveindex-question?forum=outlookdev
+            // Seriously Outlook Object Model? So the index starts at 1 and we have to always decrement instead of increment.
+            for (int j = items.Count; j >= 1; j--)
             {
+                AppointmentItem item = items[j] as AppointmentItem;
                 item.Delete();
             }
 
-            Log.WriteDebug("Deleted all future meetings");
+            Log.WriteEntry("Deleted all future meetings");
+
+            return items.Count;
         }
 
         /// <summary>
@@ -505,17 +362,34 @@ namespace WFM_For_Outlook
             return items;
         }
 
-        private void CreateCritWatchSegment(DateTime lastSyncTime, DateTime startTime, DateTime endTime)
+        private void CreateMeetingOnCalendar(DateTime lastSyncTime, Segment segment)
         {
             Outlook.AppointmentItem newMeeting = Application.CreateItem(Outlook.OlItemType.olAppointmentItem);
             if (newMeeting != null)
             {
                 newMeeting.MeetingStatus = Microsoft.Office.Interop.Outlook.OlMeetingStatus.olNonMeeting;
-                //newMeeting.Location = "Conference Room";
-                newMeeting.Subject = userOptions.critwatchSubject;
+                
+                newMeeting.Subject = userOptions.meetingPrefix + segment.Name;
+                
                 newMeeting.Body = "Created by the WFM for Outlook add-in";
-                newMeeting.Start = startTime;
-                newMeeting.End = endTime;
+                if (!String.IsNullOrEmpty(segment.Memo))
+                {
+                    newMeeting.Body = segment.Memo + "\r\n\r\n" + newMeeting.Body;
+                }
+
+                if (segment.IsAllDay)
+                {
+                    newMeeting.AllDayEvent = true;
+                    newMeeting.Start = segment.NominalDate;
+                    // https://msdn.microsoft.com/en-us/library/office/ff184629.aspx states the end date needs to be midnight of the next day
+                    newMeeting.End = segment.NominalDate.AddDays(1);
+                }
+                else
+                {
+                    newMeeting.Start = segment.StartTime;
+                    newMeeting.End = segment.EndTime;
+                }
+
                 newMeeting.Categories = userOptions.categoryName;
                 newMeeting.BusyStatus = userOptions.availStatus;
                 newMeeting.ReminderSet = userOptions.reminderSet;
@@ -529,8 +403,6 @@ namespace WFM_For_Outlook
                 newMeeting.Save();
                 //MessageBox.Show("CritWatch segment for " + startTime.ToString() + " created");
             }
-
-            Log.WriteEntry(String.Format("CritWatch meeting created (Start={0}, End={1}, LastSyncTime={2})", startTime.ToString(), endTime.ToString(), lastSyncTime.ToString()));
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

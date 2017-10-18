@@ -80,8 +80,6 @@ namespace WFM_For_Outlook
                     gallerySyncMode.SelectedItem = item;
                 }
             }
-
-            EnableDisableSyncModeControls();
         }
 
         private void InitializeCategoryGallery()
@@ -368,7 +366,7 @@ namespace WFM_For_Outlook
 
         private void btnSubject_Click(object sender, RibbonControlEventArgs e)
         {
-            var result = InputBox("Subject", ref Globals.ThisAddIn.userOptions.critwatchSubject);
+            var result = InputBox("Subject", ref Globals.ThisAddIn.userOptions.meetingPrefix);
 
             if (result == DialogResult.OK)
             {
@@ -406,12 +404,12 @@ namespace WFM_For_Outlook
 
         private void btnSegmentName_Click(object sender, RibbonControlEventArgs e)
         {
-            PromptUserForCWSegmentName();
+            PromptUserForSegmentFilter();
         }
 
-        private DialogResult PromptUserForCWSegmentName()
+        private DialogResult PromptUserForSegmentFilter()
         {
-            var result = InputBox("Critwatch Segment Name(s)", ref Globals.ThisAddIn.userOptions.segmentNameToMatch);
+            var result = InputBox(String.Format("Segment Filter ({0})", Globals.ThisAddIn.userOptions.syncMode), ref Globals.ThisAddIn.userOptions.segmentFilter);
 
             if (result == DialogResult.OK)
             {
@@ -468,12 +466,7 @@ namespace WFM_For_Outlook
 
             if (result == DialogResult.OK)
             {
-                if (newText.Length == 0)
-                {
-                    MessageBox.Show("The string cannot be blank. Reverting to last stored value.");
-                    return DialogResult.Cancel;
-                }
-                else if (newText.Length >= 254)
+                if (newText.Length >= 512)
                 {
                     MessageBox.Show("The string is too long. Reverting to last stored value.");
                     return DialogResult.Cancel;
@@ -501,7 +494,8 @@ namespace WFM_For_Outlook
 
         private void AttemptBackgroundSync()
         {
-            if (Globals.ThisAddIn.userOptions.segmentNameToMatch == string.Empty)
+            /*
+            if (Globals.ThisAddIn.userOptions.segmentFilter == string.Empty)
             {
                 MessageBox.Show("Before WFM for Outlook can sync, we need the name of your CritWatch segment. Please visit http://wfm and locate yours - it'll read like 'CritWatch' or 'GE-ECS XADM T3 SR'.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = PromptUserForCWSegmentName();
@@ -510,6 +504,7 @@ namespace WFM_For_Outlook
                     return;
                 }
             }
+            */
 
             if (syncBackgroundWorker.IsBusy)
             {
@@ -580,10 +575,13 @@ namespace WFM_For_Outlook
 
         private void btnResetSettings_Click(object sender, RibbonControlEventArgs e)
         {
-            DialogResult confirm = MessageBox.Show("Are you sure you wish to reset to default settings?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirm = MessageBox.Show("Are you sure you wish to reset to default settings? This will delete all upcoming WFM meetings on your calendar.", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirm == DialogResult.Yes)
             {
+                // delete all future synced segments
+                Globals.ThisAddIn.DeleteFutureMeetings();
+
                 // reset
                 Globals.ThisAddIn.userOptions = new Options();
 
@@ -594,18 +592,6 @@ namespace WFM_For_Outlook
                 InitializeControls();
             }
         }
-
-        private void EnableDisableSyncModeControls()
-        {
-            if (Globals.ThisAddIn.userOptions.syncMode == SyncMode.PreserveSegmentNames)
-            {
-                btnSubject.Enabled = false;
-            }
-            else
-            {
-                btnSubject.Enabled = true;
-            }
-        }
         
         private void gallerySyncMode_Click(object sender, RibbonControlEventArgs e)
         {
@@ -614,10 +600,11 @@ namespace WFM_For_Outlook
 
             Globals.ThisAddIn.userOptions.syncMode = mode;
 
-            // disable unnecessary controls
-            EnableDisableSyncModeControls();
-
             Globals.ThisAddIn.userOptions.Save();
+
+            MessageBox.Show("As you've changed your Sync Mode, please be sure to update your Segment Filter as well.", "Sync Mode Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            PromptUserForSegmentFilter();
         }
     }
 }

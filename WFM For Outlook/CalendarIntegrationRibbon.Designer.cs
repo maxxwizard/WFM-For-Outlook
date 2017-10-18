@@ -48,14 +48,14 @@
             this.galleryReminder = this.Factory.CreateRibbonGallery();
             this.galleryAvailStatus = this.Factory.CreateRibbonGallery();
             this.galleryCategory = this.Factory.CreateRibbonGallery();
+            this.gallerySyncMode = this.Factory.CreateRibbonGallery();
             this.btnSubject = this.Factory.CreateRibbonButton();
-            this.galleryDaysToPull = this.Factory.CreateRibbonGallery();
             this.galleryPollingInterval = this.Factory.CreateRibbonGallery();
+            this.galleryDaysToPull = this.Factory.CreateRibbonGallery();
             this.btnSegmentName = this.Factory.CreateRibbonButton();
             this.btnSyncNow = this.Factory.CreateRibbonButton();
             this.btnSyncLog = this.Factory.CreateRibbonButton();
             this.btnResetSettings = this.Factory.CreateRibbonButton();
-            this.gallerySyncMode = this.Factory.CreateRibbonGallery();
             this.tabWfmForOutlook.SuspendLayout();
             this.grpMeetingOptions.SuspendLayout();
             this.grpSyncOptions.SuspendLayout();
@@ -78,13 +78,13 @@
             this.grpMeetingOptions.Items.Add(this.galleryReminder);
             this.grpMeetingOptions.Items.Add(this.galleryAvailStatus);
             this.grpMeetingOptions.Items.Add(this.galleryCategory);
-            this.grpMeetingOptions.Items.Add(this.gallerySyncMode);
             this.grpMeetingOptions.Items.Add(this.btnSubject);
             this.grpMeetingOptions.Label = "Meeting Options";
             this.grpMeetingOptions.Name = "grpMeetingOptions";
             // 
             // grpSyncOptions
             // 
+            this.grpSyncOptions.Items.Add(this.gallerySyncMode);
             this.grpSyncOptions.Items.Add(this.galleryPollingInterval);
             this.grpSyncOptions.Items.Add(this.galleryDaysToPull);
             this.grpSyncOptions.Items.Add(this.btnSegmentName);
@@ -162,26 +162,26 @@
             this.galleryCategory.ShowItemSelection = true;
             this.galleryCategory.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryCategory_Click);
             // 
+            // gallerySyncMode
+            // 
+            this.gallerySyncMode.ColumnCount = 1;
+            this.gallerySyncMode.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.gallerySyncMode.Label = "Sync Mode";
+            this.gallerySyncMode.Name = "gallerySyncMode";
+            this.gallerySyncMode.OfficeImageId = "VideoContrastGallery";
+            this.gallerySyncMode.ShowImage = true;
+            this.gallerySyncMode.ShowItemSelection = true;
+            this.gallerySyncMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.gallerySyncMode_Click);
+            // 
             // btnSubject
             // 
             this.btnSubject.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSubject.Label = "Subject Title";
+            this.btnSubject.Label = "Subject Prefix";
             this.btnSubject.Name = "btnSubject";
             this.btnSubject.OfficeImageId = "MessageOptions";
-            this.btnSubject.ScreenTip = "If rename to single subject is enabled, synced segments will be titled this.";
+            this.btnSubject.ScreenTip = "Meetings created on calendar will have this prefix.";
             this.btnSubject.ShowImage = true;
             this.btnSubject.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSubject_Click);
-            // 
-            // galleryDaysToPull
-            // 
-            this.galleryDaysToPull.ColumnCount = 1;
-            this.galleryDaysToPull.Label = "Days To Pull";
-            this.galleryDaysToPull.Name = "galleryDaysToPull";
-            this.galleryDaysToPull.OfficeImageId = "MeetingsToolToday";
-            this.galleryDaysToPull.ShowImage = true;
-            this.galleryDaysToPull.ShowItemImage = false;
-            this.galleryDaysToPull.ShowItemSelection = true;
-            this.galleryDaysToPull.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryDaysToPull_Click);
             // 
             // galleryPollingInterval
             // 
@@ -194,13 +194,24 @@
             this.galleryPollingInterval.ShowItemSelection = true;
             this.galleryPollingInterval.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryPollingInterval_Click);
             // 
+            // galleryDaysToPull
+            // 
+            this.galleryDaysToPull.ColumnCount = 1;
+            this.galleryDaysToPull.Label = "Days To Pull";
+            this.galleryDaysToPull.Name = "galleryDaysToPull";
+            this.galleryDaysToPull.OfficeImageId = "MeetingsToolToday";
+            this.galleryDaysToPull.ShowImage = true;
+            this.galleryDaysToPull.ShowItemImage = false;
+            this.galleryDaysToPull.ShowItemSelection = true;
+            this.galleryDaysToPull.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryDaysToPull_Click);
+            // 
             // btnSegmentName
             // 
-            this.btnSegmentName.Label = "Segment Name(s)";
+            this.btnSegmentName.Label = "Segment Filter";
             this.btnSegmentName.Name = "btnSegmentName";
             this.btnSegmentName.OfficeImageId = "MemoSettingsMenu";
-            this.btnSegmentName.ScreenTip = "List of segment name(s) you wish to sync; separate values using a semicolon delim" +
-    "iter.";
+            this.btnSegmentName.ScreenTip = "List of segment name(s) you wish to include or exclude. Separate values using a s" +
+    "emicolon delimiter.";
             this.btnSegmentName.ShowImage = true;
             this.btnSegmentName.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSegmentName_Click);
             // 
@@ -231,17 +242,6 @@
             this.btnResetSettings.OfficeImageId = "SyncSettingsMenu";
             this.btnResetSettings.ShowImage = true;
             this.btnResetSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnResetSettings_Click);
-            // 
-            // gallerySyncMode
-            // 
-            this.gallerySyncMode.ColumnCount = 1;
-            this.gallerySyncMode.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.gallerySyncMode.Label = "Subject Renaming";
-            this.gallerySyncMode.Name = "gallerySyncMode";
-            this.gallerySyncMode.OfficeImageId = "VideoContrastGallery";
-            this.gallerySyncMode.ShowImage = true;
-            this.gallerySyncMode.ShowItemSelection = true;
-            this.gallerySyncMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.gallerySyncMode_Click);
             // 
             // CalendarIntegrationRibbon
             // 

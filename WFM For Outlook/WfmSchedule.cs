@@ -21,9 +21,21 @@ namespace WFM_For_Outlook
 
         public List<Segment> GetMatchingSegments(string[] segmentNames)
         {
+            /*
+            if (segmentNames.Count() == 1 && String.IsNullOrWhiteSpace(segmentNames[0]))
+                return this.Segments;
+            */
             List<Segment> subset = new List<Segment>();
 
-            var matches = this.Segments.Where(s => segmentNames.Contains(s.Name.ToLower()));
+            var matches = this.Segments.Where(s =>
+            {
+                if (Globals.ThisAddIn.userOptions.syncMode == SyncMode.Inclusive)
+                {
+                    return segmentNames.Contains(s.Name.ToLower());
+                }
+                
+                return !segmentNames.Contains(s.Name.ToLower());
+            });
             subset.AddRange(matches);
 
             return subset;
@@ -58,9 +70,9 @@ namespace WFM_For_Outlook
                     Code = code,
                     Name = name,
                     Memo = segment.Element("Memo").Value,
-                    IsAllDay = segment.Name.Equals("GeneralSegment"),
+                    IsAllDay = segment.Name.ToString().Equals("GeneralSegment", StringComparison.InvariantCultureIgnoreCase),
                     StartTime = segment.Element("StartTime") == null ? DateTime.MinValue : DateTime.Parse(segment.Element("StartTime").Value),
-                    EndTime = segment.Element("EndTime") == null ? DateTime.MinValue : DateTime.Parse(segment.Element("EndTime").Value),
+                    EndTime = segment.Element("StopTime") == null ? DateTime.MinValue : DateTime.Parse(segment.Element("StopTime").Value),
                     NominalDate = DateTime.Parse(segment.Element("NominalDate").Value),
                 };
                 schedule.Segments.Add(s);

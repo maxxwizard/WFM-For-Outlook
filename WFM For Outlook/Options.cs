@@ -15,27 +15,27 @@ namespace WFM_For_Outlook
 {
     public enum SyncMode
     {
-        [Description("Preserve segment names")]
-        PreserveSegmentNames,
+        [Description("Inclusive")]
+        Inclusive,
 
-        [Description("Rename to single subject")]
-        RenameToSingleSubject
+        [Description("Exclusive")]
+        Exclusive
     }
 
     public class Options
     {
         public const string CONFIG_MESSAGE_SUBJECT = "WFM for Outlook";
-        public const string DEFAULT_CRITWATCH_SUBJECT = "CritWatch";
+        public const string DEFAULT_MEETING_PREFIX = "WFM: ";
 
         public bool reminderSet;
         public int reminderMinutesBeforeStart;
         public Outlook.OlBusyStatus availStatus;
-        public string critwatchSubject;
+        public string meetingPrefix;
         public int daysToPull;
         public int pollingIntervalInMinutes;
         public DateTime lastSyncTime;
         public bool lastSyncStatus;
-        public string segmentNameToMatch;
+        public string segmentFilter;
         public string employeeSK;
         public string categoryId;
         public string categoryName;
@@ -49,12 +49,12 @@ namespace WFM_For_Outlook
             // initialize a blank new one with default values
             this.reminderSet = false;
             this.reminderMinutesBeforeStart = 0;
-            this.availStatus = Outlook.OlBusyStatus.olTentative;
-            this.critwatchSubject = DEFAULT_CRITWATCH_SUBJECT;
+            this.availStatus = Outlook.OlBusyStatus.olFree;
+            this.meetingPrefix = DEFAULT_MEETING_PREFIX;
             this.daysToPull = 14;
             this.pollingIntervalInMinutes = 480;
-            this.segmentNameToMatch = String.Empty;
-            this.syncMode = SyncMode.RenameToSingleSubject;
+            this.segmentFilter = String.Empty;
+            this.syncMode = SyncMode.Exclusive;
         }
 
         /// <summary>

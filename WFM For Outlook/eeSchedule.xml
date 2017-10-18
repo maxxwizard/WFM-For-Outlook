@@ -3,30 +3,6 @@
 <RequestScheduleView xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<FilteredSegments>
 		<Segments>
-			<DetailSegment SK="-989815326240">
-				<Employee SK="-989962008919" />
-				<NominalDate>2017-10-17</NominalDate>
-				<SegmentCode SK="-989941022901" />
-				<StartTime>2017-10-17T08:00:00-04:00</StartTime>
-				<StopTime>2017-10-17T17:00:00-04:00</StopTime>
-				<Memo />
-			</DetailSegment>
-			<DetailSegment SK="-989815326279">
-				<Employee SK="-989962008919" />
-				<NominalDate>2017-10-17</NominalDate>
-				<SegmentCode SK="-989999998220" />
-				<StartTime>2017-10-17T12:00:00-04:00</StartTime>
-				<StopTime>2017-10-17T13:00:00-04:00</StopTime>
-				<Memo />
-			</DetailSegment>
-			<DetailSegment SK="-989815326318">
-				<Employee SK="-989962008919" />
-				<NominalDate>2017-10-17</NominalDate>
-				<SegmentCode SK="-989999998236" />
-				<StartTime>2017-10-17T08:00:00-04:00</StartTime>
-				<StopTime>2017-10-17T17:00:00-04:00</StopTime>
-				<Memo />
-			</DetailSegment>
 			<DetailSegment SK="-989815326123">
 				<Employee SK="-989962008919" />
 				<NominalDate>2017-10-18</NominalDate>
@@ -123,12 +99,30 @@
 				<StopTime>2017-10-23T17:00:00-04:00</StopTime>
 				<Memo />
 			</DetailSegment>
-			<GeneralSegment SK="-989817573791">
+			<DetailSegment SK="-989815326239">
 				<Employee SK="-989962008919" />
-				<NominalDate>2017-10-17</NominalDate>
-				<SegmentCode SK="-989999997031" />
+				<NominalDate>2017-10-24</NominalDate>
+				<SegmentCode SK="-989941022901" />
+				<StartTime>2017-10-24T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-24T17:00:00-04:00</StopTime>
 				<Memo />
-			</GeneralSegment>
+			</DetailSegment>
+			<DetailSegment SK="-989815326278">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-24</NominalDate>
+				<SegmentCode SK="-989999998220" />
+				<StartTime>2017-10-24T12:00:00-04:00</StartTime>
+				<StopTime>2017-10-24T13:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
+			<DetailSegment SK="-989815326317">
+				<Employee SK="-989962008919" />
+				<NominalDate>2017-10-24</NominalDate>
+				<SegmentCode SK="-989999998236" />
+				<StartTime>2017-10-24T08:00:00-04:00</StartTime>
+				<StopTime>2017-10-24T17:00:00-04:00</StopTime>
+				<Memo />
+			</DetailSegment>
 			<GeneralSegment SK="-989817573790">
 				<Employee SK="-989962008919" />
 				<NominalDate>2017-10-18</NominalDate>
