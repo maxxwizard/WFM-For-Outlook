@@ -32,4 +32,4 @@ The sync logic is very basic:
 * If you get error 0x8007007E, try installing the [Visual Studio Tools for Office Runtime](https://www.microsoft.com/en-us/download/details.aspx?id=48217).
 
 ## Runtime issues
-* Each time WFM for Outlook does a sync, it maintains a sync log at `%APPDATA%\WFM For Outlook\sync.log`. Look in here to potentially spot what the issue is. Reach out to the tool owner and attach your sync log for in-depth issues.
+* Each time WFM for Outlook does a sync, it maintains a sync log at `%APPDATA%\WFM For Outlook\sync.log`. Look in here to potentially spot what the issue is. Reach out to mahuynh@microsoft.com and attach your sync log for in-depth issues.
