@@ -298,7 +298,7 @@ namespace WFM_For_Outlook
         }
 
         /// <summary>
-        /// Highly dangerous: deletes all meetings newer than today that the add-in created.
+        /// Hard-deletes all meetings newer than today that the add-in created.
         /// </summary>
         public int DeleteFutureMeetings()
         {
@@ -323,6 +323,8 @@ namespace WFM_For_Outlook
                 item.Delete();
             }
 
+            PurgeMeetingsFromDeletedItems();
+
             Log.WriteEntry("Deleted all future meetings");
 
             return items.Count;
@@ -331,17 +333,16 @@ namespace WFM_For_Outlook
         /// <summary>
         /// Finds all meetings created by our add-in inside Deleted Items and deletes them.
         /// </summary>
-        private void PurgeCritWatchMeetingsFromDeletedItems()
+        private void PurgeMeetingsFromDeletedItems()
         {
             Outlook.MAPIFolder deletedItems = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderDeletedItems);
             Outlook.Items itemsToPurge = deletedItems.Items;
             itemsToPurge = itemsToPurge.Restrict(String.Format("[MessageClass] = '{0}'", CUSTOM_MESSAGE_CLASS));
 
-            Outlook.AppointmentItem item = itemsToPurge.GetLast();
-            while (item != null)
+            for (int j = itemsToPurge.Count; j >= 1; j--)
             {
+                AppointmentItem item = itemsToPurge[j] as AppointmentItem;
                 item.Delete();
-                item = itemsToPurge.GetLast();
             }
         }
 
