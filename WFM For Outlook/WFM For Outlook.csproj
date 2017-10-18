@@ -39,16 +39,16 @@
     <PublishUrl>\\mahuynh-z220\wfmForOutlook\</PublishUrl>
     <InstallUrl>\\mahuynh-z220\wfmForOutlook\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.21</ApplicationVersion>
+    <ApplicationVersion>1.0.0.23</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>WFM For Outlook</ProductName>
     <PublisherName>Matthew Huynh</PublisherName>
-    <SupportUrl>http://toolbox/wfmForOutlook</SupportUrl>
+    <SupportUrl>http://www.github.com/maxxwizard/wfm-for-outlook</SupportUrl>
     <FriendlyName>WFM For Outlook</FriendlyName>
-    <OfficeApplicationDescription>Syncs CritWatch segments into your calendar.</OfficeApplicationDescription>
+    <OfficeApplicationDescription>Syncs your WFM schedule into your calendar, with optional filtering of segments.</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
