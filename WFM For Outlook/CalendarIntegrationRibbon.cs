@@ -606,5 +606,10 @@ namespace WFM_For_Outlook
 
             PromptUserForSegmentFilter();
         }
+
+        private void btnHelp_Click(object sender, RibbonControlEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://www.github.com/maxxwizard/WFM-for-Outlook");
+        }
     }
 }

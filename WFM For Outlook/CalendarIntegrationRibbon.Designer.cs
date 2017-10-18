@@ -56,6 +56,7 @@
             this.btnSyncNow = this.Factory.CreateRibbonButton();
             this.btnSyncLog = this.Factory.CreateRibbonButton();
             this.btnResetSettings = this.Factory.CreateRibbonButton();
+            this.btnHelp = this.Factory.CreateRibbonButton();
             this.tabWfmForOutlook.SuspendLayout();
             this.grpMeetingOptions.SuspendLayout();
             this.grpSyncOptions.SuspendLayout();
@@ -96,6 +97,7 @@
             this.grpSyncMisc.Items.Add(this.btnSyncNow);
             this.grpSyncMisc.Items.Add(this.btnSyncLog);
             this.grpSyncMisc.Items.Add(this.btnResetSettings);
+            this.grpSyncMisc.Items.Add(this.btnHelp);
             this.grpSyncMisc.Name = "grpSyncMisc";
             // 
             // grpSyncStatus
@@ -243,6 +245,15 @@
             this.btnResetSettings.ShowImage = true;
             this.btnResetSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnResetSettings_Click);
             // 
+            // btnHelp
+            // 
+            this.btnHelp.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnHelp.Label = "Help";
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.OfficeImageId = "Help";
+            this.btnHelp.ShowImage = true;
+            this.btnHelp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnHelp_Click);
+            // 
             // CalendarIntegrationRibbon
             // 
             this.Name = "CalendarIntegrationRibbon";
@@ -286,6 +297,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnResetSettings;
         public System.ComponentModel.BackgroundWorker syncBackgroundWorker;
         internal Microsoft.Office.Tools.Ribbon.RibbonGallery gallerySyncMode;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHelp;
     }
 
     partial class ThisRibbonCollection
