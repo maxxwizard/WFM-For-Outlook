@@ -23,8 +23,7 @@ namespace WFM_For_Outlook
 {
     public partial class ThisAddIn
     {
-
-        //Outlook.Inspectors inspectors;
+        
         public Options userOptions;
         public DateTime nextSyncTime;
 
@@ -36,12 +35,6 @@ namespace WFM_For_Outlook
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            /*
-            inspectors = this.Application.Inspectors;
-            inspectors.NewInspector +=
-                new Microsoft.Office.Interop.Outlook.InspectorsEvents_NewInspectorEventHandler(Inspectors_NewInspector);
-             */
-
             /* don't add anything here else Outlook will flag us as a slow-loading add-in */
         }
 
@@ -177,14 +170,18 @@ namespace WFM_For_Outlook
         /// <summary>
         /// Immediately does a sync against WFM.
         /// </summary>
+        /// <remarks>
+        /// 1) retrieve XML data
+        /// 2) parse XML data for appropriate segments
+        /// 3) delete all future synced meetings
+        /// 4) create the meetings based on WFM schedule
+        /// </remarks>
         /// <returns>True if sync was successful.</returns>
         public bool SyncNow()
         {
-            // 1) retrieve XML data
-            // 2) parse XML data for appropriate segments
-            // 3) retrieve all meetings of class IPM.Appointment.WFM in the current sync range and delete them
-            // 4) create the meetings again
-
+            var dict = new Dictionary<string, string>();
+            dict.Add("DaysToPull", userOptions.daysToPull.ToString());
+            Log.TrackEvent("WFM sync initiated", dict);
             Log.WriteEntry(String.Format("Sync for {0} days initiated.", userOptions.daysToPull));
 
             try
@@ -216,8 +213,11 @@ namespace WFM_For_Outlook
             catch (System.Exception e)
             {
                 Log.WriteEntry("Internal sync issue.\r\n" + e.ToString());
+                Log.TrackEvent("WFM sync failed");
                 return false;
             }
+
+            Log.TrackEvent("WFM sync finished");
 
             return true;
         }
