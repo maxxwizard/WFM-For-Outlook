@@ -219,11 +219,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Segment.cs" />
     <Compile Include="WFM API\DateRange.cs" />
     <Compile Include="WFM API\Employee.cs" />
     <Compile Include="WFM API\EmployeeSelector.cs" />
     <Compile Include="WFM API\SegmentFilter.cs" />
     <Compile Include="WFM API\SegmentFilterFormatter.cs" />
+    <Compile Include="WfmSchedule.cs" />
     <EmbeddedResource Include="CalendarIntegrationRibbon.resx">
       <DependentUpon>CalendarIntegrationRibbon.cs</DependentUpon>
     </EmbeddedResource>

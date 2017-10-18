@@ -121,7 +121,7 @@ namespace WFM_For_Outlook
                         userOptions.employeeSK = e.Attribute("SK").Value;
                     }
 
-                    userOptions.Save();
+                    //userOptions.Save();
                 }
             }
 
@@ -208,8 +208,6 @@ namespace WFM_For_Outlook
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(55);
 
-                // if we're preserving subject names
-
                 InternalSyncBetter(scheduleXml);
 
                 Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(100);
@@ -234,7 +232,7 @@ namespace WFM_For_Outlook
                 meetingsToBeCreated = 0
 
                 for each WFM segment {
-                   find a corresponding calendar meeting and mark it as processed
+                   find the corresponding calendar meeting and mark it as processed
                    if not found
                       meetingsToBeCreated++
                 }
@@ -249,11 +247,14 @@ namespace WFM_For_Outlook
                 }
              */
 
-            var matchingSegments = ParseScheduleXml(scheduleXml);
+            WfmSchedule schedule = WfmSchedule.Parse(scheduleXml);
 
-            Log.WriteEntry(String.Format("Found {0} segments titled '{1}' from WFM.", matchingSegments.Count(), userOptions.segmentNameToMatch));
+            string[] segmentNames = Globals.ThisAddIn.userOptions.segmentNameToMatch.ToLower().Split(new char[] { ';', ',' });
+            var matchingSegments = schedule.GetMatchingSegments(segmentNames);
 
-            if (Globals.ThisAddIn.userOptions.lastSyncTime == DateTime.MinValue && matchingSegments.Count() == 0)
+            Log.WriteEntry(String.Format("Found {0} segments from WFM with segment names: {1}", matchingSegments.Count, String.Join(", ", segmentNames)));
+
+            if (Globals.ThisAddIn.userOptions.lastSyncTime == DateTime.MinValue && matchingSegments.Count == 0)
             {
                 // this is the first run of the meeting and there were no segments found
                 MessageBox.Show(String.Format("I noticed this is your first WFM for Outlook sync and we did not find any" +
@@ -267,7 +268,7 @@ namespace WFM_For_Outlook
 
             Outlook.AppointmentItem unprocessedMeeting;
 
-            int stats_totalSegmentsFromWfm = matchingSegments.Count();
+            int stats_totalSegmentsFromWfm = schedule.Segments.Count;
             int stats_meetingsCreated = 0;
             int stats_meetingsDeleted = 0;
             int stats_meetingsSynched = 0;
@@ -281,6 +282,7 @@ namespace WFM_For_Outlook
             DateTime current = DateTime.Now;
             for (int i = 0; i < userOptions.daysToPull; i++)
             {
+                /*
                 Outlook.Items cwMeetingsOnCalendar = GetCritWatchMeetingsNominalDate(current);
                 IEnumerable<XElement> segmentsInWfm = from s in matchingSegments
                                                       where s.Element("NominalDate").Value == current.ToString("yyyy-MM-dd")
@@ -292,6 +294,7 @@ namespace WFM_For_Outlook
                 Log.WriteDebug("syncEngine : Starting initial sync loop, date " + current.ToShortDateString());
                 foreach (var seg in segmentsInWfm)
                 {
+                    string subject = seg.Attribute("SK").Value;
                     DateTime start = DateTime.Parse(seg.Element("StartTime").Value);
                     DateTime end = DateTime.Parse(seg.Element("StopTime").Value);
                     Outlook.AppointmentItem foundItem = FindItemInMeetings(cwMeetingsOnCalendar, start, end);
@@ -323,7 +326,7 @@ namespace WFM_For_Outlook
                     DateTime start = DateTime.Parse(seg.Element("StartTime").Value);
                     DateTime end = DateTime.Parse(seg.Element("StopTime").Value);
 
-                    // find an unprocessed calendar meeting to use
+                    // find the corresponding calendar meeting to use
                     unprocessedMeeting = FindUnprocessedMeetingToUse(syncTimeNow, cwMeetingsOnCalendar);
 
                     // if we didn't find one, we need to create a new meeting otherwise we just need to adjust it
@@ -366,6 +369,7 @@ namespace WFM_For_Outlook
 
                 // move to next day
                 current = current.AddDays(1);
+                */
 
                 // update progress
                 progressPercent += PercentPerSegment;
@@ -444,37 +448,25 @@ namespace WFM_For_Outlook
             return items;
         }
 
-        /// <summary>
-        /// Parses the stored schedule XML and returns only the matching CW segments.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<XElement> ParseScheduleXml(string xml)
+        private void DeleteFutureMeetings()
         {
-            //var xmlDoc = XDocument.Load(@"C:\sources\WFM-For-Outlook\WFM For Outlook\eeSchedule.xml");
-            var xmlDoc = XDocument.Parse(xml);
+            Log.WriteDebug("Deleting all future meetings");
 
-            // we could have a list of segment names to match
-            string[] segmentNames = userOptions.segmentNameToMatch.ToLower().Split(new char[] { ';', ',' });
+            Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
+            Outlook.Items items = calendar.Items;
 
-            var matchingCode = (from c in xmlDoc.Root.Descendants("SegmentCodes").Descendants()
-                               where c.Name == "SegmentCode" && segmentNames.Contains(c.Element("Code").Value.ToLower())
-                               select c).ToArray();
+            DateTime startDate = DateTime.Now;
 
-            // extract all the segment key IDs
-            string[] cwSKtoMatch = new string[matchingCode.Count()];
-            for (int i = 0; i < matchingCode.Count(); i++)
+            string filter = String.Format("[Start] >= '{0}' and [MessageClass] = '{2}'",
+                startDate.ToShortDateString(), CUSTOM_MESSAGE_CLASS);
+            items = items.Restrict(filter);
+
+            foreach (Outlook.AppointmentItem item in items)
             {
-                var code = matchingCode[i];
-                var id = code.Attribute("SK").Value;
-                var name = code.Element("Code").Value;
-                cwSKtoMatch[i] = id;
+                item.Delete();
             }
 
-            var matchingSegments = from s in xmlDoc.Root.Descendants("Segments").Descendants()
-                                   where s.Name == "DetailSegment" && cwSKtoMatch.Contains((string)s.Element("SegmentCode").Attribute("SK"))
-                                   select s;
-
-            return matchingSegments;
+            Log.WriteDebug("Deleted all future meetings");
         }
 
         /// <summary>
