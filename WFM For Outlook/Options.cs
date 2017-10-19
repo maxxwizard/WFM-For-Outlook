@@ -51,7 +51,7 @@ namespace WFM_For_Outlook
             this.reminderMinutesBeforeStart = 0;
             this.availStatus = Outlook.OlBusyStatus.olFree;
             this.meetingPrefix = DEFAULT_MEETING_PREFIX;
-            this.daysToPull = 14;
+            this.daysToPull = 28;
             this.pollingIntervalInMinutes = 480;
             this.segmentFilter = DEFAULT_SEGMENT_FILTER;
             this.syncMode = SyncMode.Exclusive;
