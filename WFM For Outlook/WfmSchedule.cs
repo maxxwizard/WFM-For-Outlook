@@ -21,10 +21,6 @@ namespace WFM_For_Outlook
 
         public List<Segment> GetMatchingSegments(string[] segmentNames)
         {
-            /*
-            if (segmentNames.Count() == 1 && String.IsNullOrWhiteSpace(segmentNames[0]))
-                return this.Segments;
-            */
             List<Segment> subset = new List<Segment>();
 
             var matches = this.Segments.Where(s =>

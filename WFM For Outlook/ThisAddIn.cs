@@ -233,7 +233,7 @@ namespace WFM_For_Outlook
         {
             WfmSchedule schedule = WfmSchedule.Parse(scheduleXml);
 
-            string[] segmentFilter = Globals.ThisAddIn.userOptions.segmentFilter.ToLower().Split(new char[] { ';', ',' });
+            string[] segmentFilter = Globals.ThisAddIn.userOptions.segmentFilter.ToLower().Split(new char[] { ';', ',' }).Select(s => s.Trim()).ToArray();
             var matchingSegments = schedule.GetMatchingSegments(segmentFilter);
 
             Log.WriteEntry(String.Format("Found {0} segments from WFM with {1} segment names: {2}", matchingSegments.Count, userOptions.syncMode, String.Join(", ", segmentFilter)));
