@@ -38,7 +38,6 @@ namespace WFM_For_Outlook
         public bool lastSyncStatus;
         public string segmentFilter;
         public string employeeSK;
-        public string categoryId;
         public string categoryName;
         public SyncMode syncMode;
 
@@ -56,6 +55,7 @@ namespace WFM_For_Outlook
             this.pollingIntervalInMinutes = 480;
             this.segmentFilter = DEFAULT_SEGMENT_FILTER;
             this.syncMode = SyncMode.Exclusive;
+            this.categoryName = CONFIG_MESSAGE_SUBJECT;
         }
 
         /// <summary>

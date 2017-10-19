@@ -88,15 +88,12 @@ namespace WFM_For_Outlook
 
             Outlook.Categories categories = Globals.ThisAddIn.Application.ActiveExplorer().Session.Categories;
 
-            // ensure we have a "WFM for Outlook" category to tag and set as default on creation
+            // ensure we have a "WFM for Outlook" category to tag
             try
             {
                 if (categories[Options.CONFIG_MESSAGE_SUBJECT] == null)
                 {
                     Outlook.Category wfmCategory = categories.Add(Options.CONFIG_MESSAGE_SUBJECT, Outlook.OlCategoryColor.olCategoryColorYellow);
-                    Globals.ThisAddIn.userOptions.categoryId = wfmCategory.CategoryID;
-                    Globals.ThisAddIn.userOptions.categoryName = wfmCategory.Name;
-                    Globals.ThisAddIn.userOptions.Save();
                 }
             } catch (Exception e) {
                 Log.TelemetryClient.TrackException(e);
@@ -115,7 +112,7 @@ namespace WFM_For_Outlook
                 dropdownItem.Label = cat.Name;
                 dropdownItem.Tag = cat.CategoryID;
                 galleryCategory.Items.Add(dropdownItem);
-                if (Globals.ThisAddIn.userOptions.categoryId == cat.CategoryID)
+                if (Globals.ThisAddIn.userOptions.categoryName == cat.Name)
                 {
                     galleryCategory.SelectedItem = dropdownItem;
                 }
@@ -581,7 +578,6 @@ namespace WFM_For_Outlook
         {
             var gallery = sender as RibbonGallery;
 
-            Globals.ThisAddIn.userOptions.categoryId = gallery.SelectedItem.Tag as string;
             Globals.ThisAddIn.userOptions.categoryName = galleryCategory.SelectedItem.Label as string;
 
             Globals.ThisAddIn.userOptions.Save();
