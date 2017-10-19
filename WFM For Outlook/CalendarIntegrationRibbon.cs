@@ -88,6 +88,20 @@ namespace WFM_For_Outlook
 
             Outlook.Categories categories = Globals.ThisAddIn.Application.ActiveExplorer().Session.Categories;
 
+            // ensure we have a "WFM for Outlook" category to tag and set as default on creation
+            try
+            {
+                if (categories[Options.CONFIG_MESSAGE_SUBJECT] == null)
+                {
+                    Outlook.Category wfmCategory = categories.Add(Options.CONFIG_MESSAGE_SUBJECT, Outlook.OlCategoryColor.olCategoryColorYellow);
+                    Globals.ThisAddIn.userOptions.categoryId = wfmCategory.CategoryID;
+                    Globals.ThisAddIn.userOptions.categoryName = wfmCategory.Name;
+                    Globals.ThisAddIn.userOptions.Save();
+                }
+            } catch (Exception e) {
+                Log.TelemetryClient.TrackException(e);
+            }
+
             var dropdownItem = this.Factory.CreateRibbonDropDownItem();
             dropdownItem.Label = "None";
             dropdownItem.Tag = string.Empty;
