@@ -39,10 +39,10 @@
     <PublishUrl>\\mahuynh-z220\wfmForOutlook\</PublishUrl>
     <InstallUrl>\\mahuynh-z220\wfmForOutlook\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.24</ApplicationVersion>
+    <ApplicationVersion>1.0.0.26</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateInterval>7</UpdateInterval>
+    <UpdateInterval>3</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>WFM For Outlook</ProductName>
     <PublisherName>Matthew Huynh</PublisherName>
