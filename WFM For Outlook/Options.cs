@@ -26,6 +26,7 @@ namespace WFM_For_Outlook
     {
         public const string CONFIG_MESSAGE_SUBJECT = "WFM for Outlook";
         public const string DEFAULT_MEETING_PREFIX = "WFM: ";
+        public const string DEFAULT_SEGMENT_FILTER = "Research,Shift,Meal";
 
         public bool reminderSet;
         public int reminderMinutesBeforeStart;
@@ -53,7 +54,7 @@ namespace WFM_For_Outlook
             this.meetingPrefix = DEFAULT_MEETING_PREFIX;
             this.daysToPull = 14;
             this.pollingIntervalInMinutes = 480;
-            this.segmentFilter = String.Empty;
+            this.segmentFilter = DEFAULT_SEGMENT_FILTER;
             this.syncMode = SyncMode.Exclusive;
         }
 
