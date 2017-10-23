@@ -255,7 +255,7 @@
     <Compile Include="WFM API\SegmentFilter.cs" />
     <Compile Include="WFM API\SegmentFilterFormatter.cs" />
     <Compile Include="WfmSchedule.cs" />
-    <Content Include="Resources\aspect_logo.ico" />
+    <None Include="Resources\aspect_logo.ico" />
     <EmbeddedResource Include="CalendarIntegrationRibbon.resx">
       <DependentUpon>CalendarIntegrationRibbon.cs</DependentUpon>
     </EmbeddedResource>
