@@ -39,7 +39,7 @@
     <PublishUrl>\\mahuynh-z220\wfmForOutlook\</PublishUrl>
     <InstallUrl>https://wfmforoutlook.blob.core.windows.net/clickonceinstall/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.28</ApplicationVersion>
+    <ApplicationVersion>1.0.0.29</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>3</UpdateInterval>
