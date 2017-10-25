@@ -19,7 +19,7 @@ The default settings are:
 * **Exclusive** sync mode meaning all segments will be synced unless they are excluded inside the **Segment Filter**
 * Research, Shift, and Meal segments are excluded
 * Sync happens every 8 hours
-* Each sync pulls the next 14 days of your schedule
+* Each sync pulls the next 28 days of your schedule
 * New meetings are prepended with "WFM: " and tagged with a yellow category
 
 The sync logic is very basic:
