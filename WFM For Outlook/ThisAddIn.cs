@@ -52,7 +52,7 @@ namespace WFM_For_Outlook
 
                 client = new HttpClient(clientHandler);
 
-                client.BaseAddress = new Uri("http://wfm");
+                client.BaseAddress = new Uri("https://wfm");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("image/jpeg"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-ms-application"));
