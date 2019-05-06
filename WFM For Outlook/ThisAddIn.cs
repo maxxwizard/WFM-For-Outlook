@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using Office = Microsoft.Office.Core;
-using System.Windows.Forms;
-using System.IO;
-using System.Web;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using WFM_For_Outlook.WFM_API;
-using Microsoft.Office.Tools.Ribbon;
-using System.Threading;
+using System.Windows.Forms;
+using System.Xml.Linq;
 using Microsoft.Office.Interop.Outlook;
+using WFM_For_Outlook.WFM_API;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace WFM_For_Outlook
 {
     public partial class ThisAddIn
     {
-        
+
         public Options userOptions;
         public DateTime nextSyncTime;
 
@@ -43,7 +34,7 @@ namespace WFM_For_Outlook
             // http://haacked.com/archive/2004/05/15/http-web-request-expect-100-continue.aspx/
             System.Net.ServicePointManager.Expect100Continue = false;
 
-            if (this.clientHandler == null)
+            if (clientHandler == null)
             {
                 clientHandler = new HttpClientHandler();
                 clientHandler.UseDefaultCredentials = true;
@@ -52,7 +43,7 @@ namespace WFM_For_Outlook
 
                 client = new HttpClient(clientHandler);
 
-                client.BaseAddress = new Uri("https://wfm");
+                client.BaseAddress = new Uri("https://wfm2");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("image/jpeg"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-ms-application"));
@@ -114,7 +105,7 @@ namespace WFM_For_Outlook
                     {
                         userOptions.employeeSK = e.Attribute("SK").Value;
                     }
-                    
+
                 }
             }
 
@@ -197,7 +188,7 @@ namespace WFM_For_Outlook
                 }
 
                 // we subtract one from DaysToPull because the current day counts
-                string scheduleXml = QueryWfmForSegments(DateTime.Now, DateTime.Now.AddDays(userOptions.daysToPull-1)).Result;
+                string scheduleXml = QueryWfmForSegments(DateTime.Now, DateTime.Now.AddDays(userOptions.daysToPull - 1)).Result;
                 if (scheduleXml == string.Empty)
                 {
                     return false;
@@ -249,7 +240,7 @@ namespace WFM_For_Outlook
             int stats_meetingsDeleted = DeleteFutureMeetings();
 
             var syncTimeNow = DateTime.Now;
-            
+
             int stats_totalSegmentsFromWfm = schedule.Segments.Count;
             int stats_meetingsCreated = 0;
 
@@ -283,7 +274,7 @@ namespace WFM_For_Outlook
         /// <returns></returns>
         private Outlook.Items GetMeetingsNominalDate(DateTime startDate)
         {
-            Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
+            Outlook.MAPIFolder calendar = Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
             Outlook.Items items = calendar.Items;
 
             //DateTime nominalDate = new DateTime(startDate.Year, startDate.Month, startDate.Day);
@@ -304,13 +295,13 @@ namespace WFM_For_Outlook
         {
             Log.WriteDebug("Deleting all future meetings");
 
-            Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
+            Outlook.MAPIFolder calendar = Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
             Outlook.Items items = calendar.Items;
 
             // start deleting from 11:59pm the previous night to capture the all-day events
             DateTime startDate = DateTime.Now.Date.AddMinutes(-1);
 
-            string filter = String.Format("[Start] >= '{0}' and [MessageClass] = '{1}'", 
+            string filter = String.Format("[Start] >= '{0}' and [MessageClass] = '{1}'",
                 String.Format("{0} {1}", startDate.ToShortDateString(), startDate.ToShortTimeString()), CUSTOM_MESSAGE_CLASS);
             items = items.Restrict(filter);
 
@@ -335,7 +326,7 @@ namespace WFM_For_Outlook
         /// </summary>
         private void PurgeMeetingsFromDeletedItems()
         {
-            Outlook.MAPIFolder deletedItems = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderDeletedItems);
+            Outlook.MAPIFolder deletedItems = Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderDeletedItems);
             Outlook.Items itemsToPurge = deletedItems.Items;
             itemsToPurge = itemsToPurge.Restrict(String.Format("[MessageClass] = '{0}'", CUSTOM_MESSAGE_CLASS));
 
@@ -352,7 +343,7 @@ namespace WFM_For_Outlook
         /// <returns></returns>
         private Outlook.Items GetCritWatchMeetings(DateTime startDate, DateTime endDate)
         {
-            Outlook.MAPIFolder calendar = this.Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
+            Outlook.MAPIFolder calendar = Application.ActiveExplorer().Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar);
             Outlook.Items items = calendar.Items;
 
             // filter to just our custom items in our date range
@@ -369,9 +360,9 @@ namespace WFM_For_Outlook
             if (newMeeting != null)
             {
                 newMeeting.MeetingStatus = Microsoft.Office.Interop.Outlook.OlMeetingStatus.olNonMeeting;
-                
+
                 newMeeting.Subject = userOptions.meetingPrefix + segment.Name;
-                
+
                 newMeeting.Body = "Created by the WFM for Outlook add-in";
                 if (!String.IsNullOrEmpty(segment.Memo))
                 {
@@ -419,8 +410,8 @@ namespace WFM_For_Outlook
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(ThisAddIn_Startup);
-            this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
+            Startup += new System.EventHandler(ThisAddIn_Startup);
+            Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
 
         #endregion
