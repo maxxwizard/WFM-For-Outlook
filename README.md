@@ -9,7 +9,7 @@ Add-in for Outlook that syncs your WFM schedule into your calendar, with optiona
 
 ## Quick-start guide
 1. Exit Outlook.
-2. Install the add-in by clicking [here](https://wfmforoutlook.blob.core.windows.net/clickonceinstall/WFM%20For%20Outlook.vsto). Future updates are automatic with ClickOnce technology.
+2. Install the add-in by opening this [link](https://wfmforoutlook.blob.core.windows.net/clickonceinstall/WFM%20For%20Outlook.vsto) using Internet Explorer. Future updates are automatic with ClickOnce technology.
 3. Launch Outlook and locate the new **WFM for Outlook** tab in the ribbon.
 4. Configure **Meeting Options** to determine how synced segments appear on your calendar.
 5. Click the **Sync Now** button to do an immediate pull from WFM.
