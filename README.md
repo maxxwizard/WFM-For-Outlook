@@ -5,7 +5,7 @@ Add-in for Outlook that syncs your WFM schedule into your calendar, with optiona
 * [.NET Framework 4.5](http://www.microsoft.com/en-us/download/details.aspx?id=42643)
 * Outlook 2013 / Outlook 2016
 * [Visual Studio Tools for Office Runtime](https://www.microsoft.com/en-us/download/details.aspx?id=48217)
-* Corpnet connectivity to resolve https://wfm2
+* Connectivity to http://azwfmprdis02.partners.extranet.microsoft.com/
 
 ## Quick-start guide
 1. Exit Outlook.
