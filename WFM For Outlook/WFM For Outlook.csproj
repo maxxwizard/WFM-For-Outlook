@@ -36,14 +36,14 @@
     <IsWebBootstrapper>True</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <BootstrapperEnabled>false</BootstrapperEnabled>
-    <PublishUrl>\\MAHUYNH-P5820\public\wfmForOutlook\</PublishUrl>
+    <PublishUrl>\\MAHUYNH-P520\public\wfmForOutlook\</PublishUrl>
     <InstallUrl>https://wfmforoutlook.blob.core.windows.net/clickonceinstall/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ApplicationVersion>1.0.0.32</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>3</UpdateInterval>
-    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <UpdateIntervalUnits>weeks</UpdateIntervalUnits>
     <ProductName>WFM For Outlook</ProductName>
     <PublisherName>Matthew Huynh</PublisherName>
     <SupportUrl>http://www.github.com/maxxwizard/wfm-for-outlook</SupportUrl>
