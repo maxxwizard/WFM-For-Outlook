@@ -96,7 +96,7 @@ namespace WFM_For_Outlook
                     Outlook.Category wfmCategory = categories.Add(Options.CONFIG_MESSAGE_SUBJECT, Outlook.OlCategoryColor.olCategoryColorYellow);
                 }
             } catch (Exception e) {
-                Log.TelemetryClient.TrackException(e);
+                MessageBox.Show($"Failed to initialize a default category: {e}");
             }
 
             var dropdownItem = this.Factory.CreateRibbonDropDownItem();

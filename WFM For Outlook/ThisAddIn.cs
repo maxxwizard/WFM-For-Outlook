@@ -172,7 +172,6 @@ namespace WFM_For_Outlook
         {
             var dict = new Dictionary<string, string>();
             dict.Add("DaysToPull", userOptions.daysToPull.ToString());
-            Log.TrackEvent("WFM sync initiated", dict);
             Log.WriteEntry(String.Format("Sync for {0} days initiated.", userOptions.daysToPull));
 
             try
@@ -204,11 +203,8 @@ namespace WFM_For_Outlook
             catch (System.Exception e)
             {
                 Log.WriteEntry("Internal sync issue.\r\n" + e.ToString());
-                Log.TrackEvent("WFM sync failed");
                 return false;
             }
-
-            Log.TrackEvent("WFM sync finished");
 
             return true;
         }
