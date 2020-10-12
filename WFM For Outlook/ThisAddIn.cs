@@ -43,7 +43,7 @@ namespace WFM_For_Outlook
 
                 client = new HttpClient(clientHandler);
 
-                client.BaseAddress = new Uri("http://azwfmprdis02.partners.extranet.microsoft.com");
+                client.BaseAddress = new Uri(Globals.ThisAddIn.userOptions.wfmUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("image/jpeg"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-ms-application"));

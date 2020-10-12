@@ -37,26 +37,27 @@
             this.components = new System.ComponentModel.Container();
             this.tabWfmForOutlook = this.Factory.CreateRibbonTab();
             this.grpMeetingOptions = this.Factory.CreateRibbonGroup();
+            this.galleryReminder = this.Factory.CreateRibbonGallery();
+            this.galleryAvailStatus = this.Factory.CreateRibbonGallery();
+            this.galleryCategory = this.Factory.CreateRibbonGallery();
+            this.btnSubject = this.Factory.CreateRibbonButton();
             this.grpSyncOptions = this.Factory.CreateRibbonGroup();
+            this.gallerySyncMode = this.Factory.CreateRibbonGallery();
+            this.galleryPollingInterval = this.Factory.CreateRibbonGallery();
+            this.galleryDaysToPull = this.Factory.CreateRibbonGallery();
+            this.btnSegmentName = this.Factory.CreateRibbonButton();
             this.grpSyncMisc = this.Factory.CreateRibbonGroup();
+            this.btnSyncNow = this.Factory.CreateRibbonButton();
+            this.btnSyncLog = this.Factory.CreateRibbonButton();
+            this.btnResetSettings = this.Factory.CreateRibbonButton();
+            this.btnHelp = this.Factory.CreateRibbonButton();
             this.grpSyncStatus = this.Factory.CreateRibbonGroup();
             this.labelLastSyncTime = this.Factory.CreateRibbonLabel();
             this.labelLastSyncStatus = this.Factory.CreateRibbonLabel();
             this.labelNextSyncTime = this.Factory.CreateRibbonLabel();
             this.syncBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.galleryReminder = this.Factory.CreateRibbonGallery();
-            this.galleryAvailStatus = this.Factory.CreateRibbonGallery();
-            this.galleryCategory = this.Factory.CreateRibbonGallery();
-            this.gallerySyncMode = this.Factory.CreateRibbonGallery();
-            this.btnSubject = this.Factory.CreateRibbonButton();
-            this.galleryPollingInterval = this.Factory.CreateRibbonGallery();
-            this.galleryDaysToPull = this.Factory.CreateRibbonGallery();
-            this.btnSegmentName = this.Factory.CreateRibbonButton();
-            this.btnSyncNow = this.Factory.CreateRibbonButton();
-            this.btnSyncLog = this.Factory.CreateRibbonButton();
-            this.btnResetSettings = this.Factory.CreateRibbonButton();
-            this.btnHelp = this.Factory.CreateRibbonButton();
+            this.btnWfmUrl = this.Factory.CreateRibbonButton();
             this.tabWfmForOutlook.SuspendLayout();
             this.grpMeetingOptions.SuspendLayout();
             this.grpSyncOptions.SuspendLayout();
@@ -82,54 +83,6 @@
             this.grpMeetingOptions.Items.Add(this.btnSubject);
             this.grpMeetingOptions.Label = "Meeting Options";
             this.grpMeetingOptions.Name = "grpMeetingOptions";
-            // 
-            // grpSyncOptions
-            // 
-            this.grpSyncOptions.Items.Add(this.gallerySyncMode);
-            this.grpSyncOptions.Items.Add(this.galleryPollingInterval);
-            this.grpSyncOptions.Items.Add(this.galleryDaysToPull);
-            this.grpSyncOptions.Items.Add(this.btnSegmentName);
-            this.grpSyncOptions.Label = "Sync Options";
-            this.grpSyncOptions.Name = "grpSyncOptions";
-            // 
-            // grpSyncMisc
-            // 
-            this.grpSyncMisc.Items.Add(this.btnSyncNow);
-            this.grpSyncMisc.Items.Add(this.btnSyncLog);
-            this.grpSyncMisc.Items.Add(this.btnResetSettings);
-            this.grpSyncMisc.Items.Add(this.btnHelp);
-            this.grpSyncMisc.Name = "grpSyncMisc";
-            // 
-            // grpSyncStatus
-            // 
-            this.grpSyncStatus.Items.Add(this.labelLastSyncTime);
-            this.grpSyncStatus.Items.Add(this.labelLastSyncStatus);
-            this.grpSyncStatus.Items.Add(this.labelNextSyncTime);
-            this.grpSyncStatus.Name = "grpSyncStatus";
-            // 
-            // labelLastSyncTime
-            // 
-            this.labelLastSyncTime.Label = "Last sync time:";
-            this.labelLastSyncTime.Name = "labelLastSyncTime";
-            // 
-            // labelLastSyncStatus
-            // 
-            this.labelLastSyncStatus.Label = "Last sync status:";
-            this.labelLastSyncStatus.Name = "labelLastSyncStatus";
-            // 
-            // labelNextSyncTime
-            // 
-            this.labelNextSyncTime.Label = "Next sync time:";
-            this.labelNextSyncTime.Name = "labelNextSyncTime";
-            // 
-            // syncBackgroundWorker
-            // 
-            this.syncBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncBackgroundWorker_DoWork);
-            // 
-            // syncTimer
-            // 
-            this.syncTimer.Interval = 60000;
-            this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
             // galleryReminder
             // 
@@ -164,6 +117,26 @@
             this.galleryCategory.ShowItemSelection = true;
             this.galleryCategory.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryCategory_Click);
             // 
+            // btnSubject
+            // 
+            this.btnSubject.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSubject.Label = "Subject Prefix";
+            this.btnSubject.Name = "btnSubject";
+            this.btnSubject.OfficeImageId = "MemoSettingsMenu";
+            this.btnSubject.ScreenTip = "Meetings created on calendar will have this prefix.";
+            this.btnSubject.ShowImage = true;
+            this.btnSubject.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSubject_Click);
+            // 
+            // grpSyncOptions
+            // 
+            this.grpSyncOptions.Items.Add(this.gallerySyncMode);
+            this.grpSyncOptions.Items.Add(this.galleryPollingInterval);
+            this.grpSyncOptions.Items.Add(this.galleryDaysToPull);
+            this.grpSyncOptions.Items.Add(this.btnSegmentName);
+            this.grpSyncOptions.Items.Add(this.btnWfmUrl);
+            this.grpSyncOptions.Label = "Sync Options";
+            this.grpSyncOptions.Name = "grpSyncOptions";
+            // 
             // gallerySyncMode
             // 
             this.gallerySyncMode.ColumnCount = 1;
@@ -174,16 +147,6 @@
             this.gallerySyncMode.ShowImage = true;
             this.gallerySyncMode.ShowItemSelection = true;
             this.gallerySyncMode.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.gallerySyncMode_Click);
-            // 
-            // btnSubject
-            // 
-            this.btnSubject.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSubject.Label = "Subject Prefix";
-            this.btnSubject.Name = "btnSubject";
-            this.btnSubject.OfficeImageId = "MemoSettingsMenu";
-            this.btnSubject.ScreenTip = "Meetings created on calendar will have this prefix.";
-            this.btnSubject.ShowImage = true;
-            this.btnSubject.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSubject_Click);
             // 
             // galleryPollingInterval
             // 
@@ -216,6 +179,14 @@
     "emicolon delimiter.";
             this.btnSegmentName.ShowImage = true;
             this.btnSegmentName.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSegmentName_Click);
+            // 
+            // grpSyncMisc
+            // 
+            this.grpSyncMisc.Items.Add(this.btnSyncNow);
+            this.grpSyncMisc.Items.Add(this.btnSyncLog);
+            this.grpSyncMisc.Items.Add(this.btnResetSettings);
+            this.grpSyncMisc.Items.Add(this.btnHelp);
+            this.grpSyncMisc.Name = "grpSyncMisc";
             // 
             // btnSyncNow
             // 
@@ -253,6 +224,46 @@
             this.btnHelp.OfficeImageId = "Help";
             this.btnHelp.ShowImage = true;
             this.btnHelp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnHelp_Click);
+            // 
+            // grpSyncStatus
+            // 
+            this.grpSyncStatus.Items.Add(this.labelLastSyncTime);
+            this.grpSyncStatus.Items.Add(this.labelLastSyncStatus);
+            this.grpSyncStatus.Items.Add(this.labelNextSyncTime);
+            this.grpSyncStatus.Name = "grpSyncStatus";
+            // 
+            // labelLastSyncTime
+            // 
+            this.labelLastSyncTime.Label = "Last sync time:";
+            this.labelLastSyncTime.Name = "labelLastSyncTime";
+            // 
+            // labelLastSyncStatus
+            // 
+            this.labelLastSyncStatus.Label = "Last sync status:";
+            this.labelLastSyncStatus.Name = "labelLastSyncStatus";
+            // 
+            // labelNextSyncTime
+            // 
+            this.labelNextSyncTime.Label = "Next sync time:";
+            this.labelNextSyncTime.Name = "labelNextSyncTime";
+            // 
+            // syncBackgroundWorker
+            // 
+            this.syncBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncBackgroundWorker_DoWork);
+            // 
+            // syncTimer
+            // 
+            this.syncTimer.Interval = 60000;
+            this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
+            // 
+            // btnWfmUrl
+            // 
+            this.btnWfmUrl.Label = "WFM URL";
+            this.btnWfmUrl.Name = "btnWfmUrl";
+            this.btnWfmUrl.OfficeImageId = "WebQueryAccess";
+            this.btnWfmUrl.ScreenTip = "URL of WFM to pull data from.";
+            this.btnWfmUrl.ShowImage = true;
+            this.btnWfmUrl.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnWfmUrl_Click);
             // 
             // CalendarIntegrationRibbon
             // 
@@ -298,6 +309,7 @@
         public System.ComponentModel.BackgroundWorker syncBackgroundWorker;
         internal Microsoft.Office.Tools.Ribbon.RibbonGallery gallerySyncMode;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHelp;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnWfmUrl;
     }
 
     partial class ThisRibbonCollection

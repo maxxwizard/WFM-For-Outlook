@@ -40,6 +40,7 @@ namespace WFM_For_Outlook
         public string employeeSK;
         public string categoryName;
         public SyncMode syncMode;
+        public string wfmUrl;
 
         /// <summary>
         /// Constructor with default values.
@@ -56,6 +57,7 @@ namespace WFM_For_Outlook
             this.segmentFilter = DEFAULT_SEGMENT_FILTER;
             this.syncMode = SyncMode.Exclusive;
             this.categoryName = CONFIG_MESSAGE_SUBJECT;
+            this.wfmUrl = "http://azwfmprdis02.partners.extranet.microsoft.com/";
         }
 
         /// <summary>

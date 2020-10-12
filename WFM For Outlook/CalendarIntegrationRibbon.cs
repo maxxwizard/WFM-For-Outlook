@@ -621,5 +621,15 @@ namespace WFM_For_Outlook
         {
             System.Diagnostics.Process.Start(@"https://www.github.com/maxxwizard/WFM-for-Outlook");
         }
+
+        private void btnWfmUrl_Click(object sender, RibbonControlEventArgs e)
+        {
+            var result = InputBox("WFM URL", ref Globals.ThisAddIn.userOptions.wfmUrl);
+
+            if (result == DialogResult.OK)
+            {
+                Globals.ThisAddIn.userOptions.Save();
+            }
+        }
     }
 }
