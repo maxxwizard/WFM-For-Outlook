@@ -57,7 +57,7 @@ namespace WFM_For_Outlook
             this.segmentFilter = DEFAULT_SEGMENT_FILTER;
             this.syncMode = SyncMode.Exclusive;
             this.categoryName = CONFIG_MESSAGE_SUBJECT;
-            this.wfmUrl = "http://azwfmprdis02.partners.extranet.microsoft.com/";
+            this.wfmUrl = "http://azwfmprdis02.partners.extranet.microsoft.com/EAMWeb/WFMPRD/ENU/Common/servlet";
         }
 
         /// <summary>

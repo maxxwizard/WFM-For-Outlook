@@ -46,6 +46,7 @@
             this.galleryPollingInterval = this.Factory.CreateRibbonGallery();
             this.galleryDaysToPull = this.Factory.CreateRibbonGallery();
             this.btnSegmentName = this.Factory.CreateRibbonButton();
+            this.btnWfmUrl = this.Factory.CreateRibbonButton();
             this.grpSyncMisc = this.Factory.CreateRibbonGroup();
             this.btnSyncNow = this.Factory.CreateRibbonButton();
             this.btnSyncLog = this.Factory.CreateRibbonButton();
@@ -57,7 +58,6 @@
             this.labelNextSyncTime = this.Factory.CreateRibbonLabel();
             this.syncBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnWfmUrl = this.Factory.CreateRibbonButton();
             this.tabWfmForOutlook.SuspendLayout();
             this.grpMeetingOptions.SuspendLayout();
             this.grpSyncOptions.SuspendLayout();
@@ -180,6 +180,15 @@
             this.btnSegmentName.ShowImage = true;
             this.btnSegmentName.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSegmentName_Click);
             // 
+            // btnWfmUrl
+            // 
+            this.btnWfmUrl.Label = "WFM URL";
+            this.btnWfmUrl.Name = "btnWfmUrl";
+            this.btnWfmUrl.OfficeImageId = "WebQueryAccess";
+            this.btnWfmUrl.ScreenTip = "URL of WFM to pull data from.";
+            this.btnWfmUrl.ShowImage = true;
+            this.btnWfmUrl.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnWfmUrl_Click);
+            // 
             // grpSyncMisc
             // 
             this.grpSyncMisc.Items.Add(this.btnSyncNow);
@@ -255,15 +264,6 @@
             // 
             this.syncTimer.Interval = 60000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
-            // 
-            // btnWfmUrl
-            // 
-            this.btnWfmUrl.Label = "WFM URL";
-            this.btnWfmUrl.Name = "btnWfmUrl";
-            this.btnWfmUrl.OfficeImageId = "WebQueryAccess";
-            this.btnWfmUrl.ScreenTip = "URL of WFM to pull data from.";
-            this.btnWfmUrl.ShowImage = true;
-            this.btnWfmUrl.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnWfmUrl_Click);
             // 
             // CalendarIntegrationRibbon
             // 

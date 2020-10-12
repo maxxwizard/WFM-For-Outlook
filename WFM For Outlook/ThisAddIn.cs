@@ -73,7 +73,7 @@ namespace WFM_For_Outlook
                 string targetUrl = string.Empty;
                 string userXML = string.Empty;
 
-                targetUrl = client.BaseAddress.ToString() + "/EAMWeb/WFMPRD/ENU/Common/servlet/AdminGetUserProfile.ewfm";
+                targetUrl = client.BaseAddress.ToString() + "/AdminGetUserProfile.ewfm";
                 Log.WriteEntry("HTTP GET from " + targetUrl);
                 try
                 {
@@ -124,7 +124,7 @@ namespace WFM_For_Outlook
 
             MediaTypeFormatter formatter = new SegmentFilterFormatter();
 
-            targetUrl = client.BaseAddress.ToString() + "/EAMWeb/WFMPRD/ENU/ScheduleEditor/servlet/RequestScheduleView.ewfm";
+            targetUrl = client.BaseAddress.ToString() + "/RequestScheduleView.ewfm";
             Log.WriteEntry("HTTP POST to " + targetUrl);
             Globals.Ribbons.CalendarIntegrationRibbon.syncBackgroundWorker.ReportProgress(40);
             try
