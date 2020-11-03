@@ -34,6 +34,11 @@ namespace WFM_For_Outlook
             // http://haacked.com/archive/2004/05/15/http-web-request-expect-100-continue.aspx/
             System.Net.ServicePointManager.Expect100Continue = false;
 
+            if (Globals.ThisAddIn.userOptions.wfmUrl.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            }
+
             if (clientHandler == null)
             {
                 clientHandler = new HttpClientHandler();
@@ -52,10 +57,6 @@ namespace WFM_For_Outlook
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("image/pjpeg"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-ms-xbap"));
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("*/*"));
-
-                //client.DefaultRequestHeaders.Connection.Add("Keep-Alive");
-                //client.DefaultRequestHeaders.CacheControl.NoCache = false;
-
             }
         }
 
